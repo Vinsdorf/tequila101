@@ -1,48 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#1e6b6b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230" fill="none" stroke="#2a7070" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+
   <!-- Sun semicircle -->
-  <path d="M 55 105 A 45 45 0 0 1 145 105"/>
+  <path d="M 62 122 A 58 58 0 0 1 178 122"/>
 
-  <!-- Sun rays (alternating long/short) -->
-  <!-- Top center -->
-  <line x1="100" y1="56" x2="100" y2="44"/>
-  <!-- Short: ~15° -->
-  <line x1="112" y1="58" x2="117" y2="47"/>
-  <!-- Long: ~30° -->
-  <line x1="122" y1="64" x2="130" y2="55"/>
-  <!-- Short: ~45° -->
-  <line x1="130" y1="74" x2="140" y2="67"/>
-  <!-- Long: ~60° -->
-  <line x1="135" y1="86" x2="146" y2="82"/>
-  <!-- Short: ~75° -->
-  <line x1="137" y1="98" x2="149" y2="97"/>
-  <!-- Mirror left -->
-  <line x1="88"  y1="58" x2="83"  y2="47"/>
-  <line x1="78"  y1="64" x2="70"  y2="55"/>
-  <line x1="70"  y1="74" x2="60"  y2="67"/>
-  <line x1="65"  y1="86" x2="54"  y2="82"/>
-  <line x1="63"  y1="98" x2="51"  y2="97"/>
+  <!-- Rays (alternating long / short) -->
+  <line x1="120" y1="61"  x2="120" y2="46"/>
+  <line x1="139" y1="65"  x2="145" y2="51"/>
+  <line x1="155" y1="76"  x2="165" y2="65"/>
+  <line x1="166" y1="92"  x2="178" y2="84"/>
+  <line x1="172" y1="110" x2="185" y2="106"/>
+  <line x1="101" y1="65"  x2="95"  y2="51"/>
+  <line x1="85"  y1="76"  x2="75"  y2="65"/>
+  <line x1="74"  y1="92"  x2="62"  y2="84"/>
+  <line x1="68"  y1="110" x2="55"  y2="106"/>
 
-  <!-- Agave: center upward spike -->
-  <path d="M 100 105 C 100 90 100 78 100 62"/>
+  <!-- Agave center spike -->
+  <path d="M 120 130 C 120 112 120 94 120 76"/>
 
-  <!-- Agave leaves — upper left -->
-  <path d="M 100 108 C 92 100 78 92 58 84"/>
-  <path d="M 100 112 C 88 108 72 108 50 116"/>
+  <!-- Agave leaves — upper pair -->
+  <path d="M 120 128 C 110 118 94 108 70 100"/>
+  <path d="M 120 128 C 130 118 146 108 170 100"/>
 
-  <!-- Agave leaves — upper right -->
-  <path d="M 100 108 C 108 100 122 92 142 84"/>
-  <path d="M 100 112 C 112 108 128 108 150 116"/>
+  <!-- Agave leaves — middle pair -->
+  <path d="M 120 136 C 104 132 86 130 58 136"/>
+  <path d="M 120 136 C 136 132 154 130 182 136"/>
 
-  <!-- Agave leaves — lower left -->
-  <path d="M 100 116 C 90 118 76 126 60 140"/>
-  <path d="M 100 120 C 88 126 74 136 66 152"/>
+  <!-- Agave leaves — lower pair -->
+  <path d="M 120 142 C 106 148 90 158 72 172"/>
+  <path d="M 120 142 C 134 148 150 158 168 172"/>
 
-  <!-- Agave leaves — lower right -->
-  <path d="M 100 116 C 110 118 124 126 140 140"/>
-  <path d="M 100 120 C 112 126 126 136 134 152"/>
-
-  <!-- Agave leaves — side left -->
-  <path d="M 100 114 C 84 114 68 118 44 122"/>
-  <!-- Agave leaves — side right -->
-  <path d="M 100 114 C 116 114 132 118 156 122"/>
 </svg>
