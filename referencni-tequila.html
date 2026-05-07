@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fortaleza — referenční tequila vyráběná tradičními metodami pradědů. Tahona, otevřená fermentace, měděné pot stilly. NOM 1493.">
+    <title>Referenční tequila — Tequila 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:         #fafaf6;
+            --bg-warm:    #f5f1e8;
+            --white:      #ffffff;
+            --green:      #4a7c59;
+            --green-lt:   #e8f0ea;
+            --gold:       #b8965a;
+            --gold-lt:    #f5ede0;
+            --dark:       #1c1c1c;
+            --mid:        #5a5a5a;
+            --light:      #9a9a9a;
+            --border:     #e8e4dc;
+            --ff-serif:   'Playfair Display', Georgia, serif;
+            --ff-sans:    'Inter', system-ui, sans-serif;
+            --max-w:      1100px;
+            --pad-x:      clamp(1.5rem, 5vw, 3rem);
+            --section-py: clamp(4rem, 8vw, 8rem);
+            --ease:       cubic-bezier(.25,.46,.45,.94);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── Typography ── */
+        h1, h2, h3, h4 { font-family: var(--ff-serif); line-height: 1.25; }
+        h1 { font-size: clamp(2.6rem, 6vw, 5rem); }
+        h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        h4 { font-size: 1.05rem; }
+        p  { font-size: clamp(.93rem, 1.4vw, 1.05rem); color: var(--mid); max-width: 68ch; }
+        a  { color: var(--green); text-decoration: none; }
+
+        /* ── Layout helpers ── */
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+        .section    { padding: var(--section-py) 0; }
+        .section--warm  { background: var(--bg-warm); }
+        .section--white { background: var(--white); }
+
+        .label {
+            display: inline-block;
+            font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 1rem;
+        }
+        .divider { width: 3rem; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+
+        /* ── Scroll animations ── */
+        .anim {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: .1s; }
+        .d2 { transition-delay: .2s; }
+        .d3 { transition-delay: .3s; }
+        .d4 { transition-delay: .4s; }
+
+        /* ══════════════════════════════
+           NAV
+        ══════════════════════════════ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.2rem 0;
+            transition: background .3s var(--ease), box-shadow .3s var(--ease), padding .3s var(--ease);
+        }
+        .nav.scrolled {
+            background: rgba(250,250,246,.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--border);
+            padding: .75rem 0;
+        }
+        .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav__logo { font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 700; color: var(--dark); }
+        .nav__logo span { color: var(--gold); }
+
+        .nav__links { display: flex; gap: 2rem; list-style: none; }
+        .nav__links a {
+            font-size: .83rem; font-weight: 500; color: var(--mid); letter-spacing: .02em;
+            transition: color .2s;
+        }
+        .nav__links a:hover, .nav__links a.active { color: var(--dark); }
+
+        .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav__burger span { display: block; width: 22px; height: 2px; background: var(--dark); transition: .3s; }
+
+        @media (max-width: 780px) {
+            .nav__links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--bg); flex-direction: column; padding: 1rem var(--pad-x);
+                border-top: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            }
+            .nav__links.open { display: flex; }
+            .nav__burger { display: flex; }
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        .hero {
+            min-height: 100svh; display: flex; align-items: center;
+            position: relative; overflow: hidden; background: var(--white);
+        }
+        .hero--sub { min-height: 40vh; }
+        .hero__bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 80% 50%, rgba(184,150,90,.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 15% 80%, rgba(74,124,89,.05) 0%, transparent 60%);
+        }
+        .hero__content { position: relative; z-index: 2; padding-top: 6rem; }
+
+        .hero__eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+        .hero__eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+        .hero__eyebrow-text { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+        .hero__title { margin-bottom: 1.5rem; color: var(--dark); }
+        .hero__title em { color: var(--gold); font-style: italic; }
+
+        .hero__sub { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 52ch; margin-bottom: 3rem; }
+
+        /* ── section header ── */
+        .sh { margin-bottom: 3rem; }
+        .sh h2 { margin-bottom: .6rem; }
+
+        /* ── two-col ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: .4rem;
+            background: var(--green-lt); color: var(--green);
+            font-size: .78rem; font-weight: 500; padding: .35rem .85rem; border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+        .hl-box {
+            background: var(--gold-lt); border-left: 3px solid var(--gold);
+            padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;
+        }
+        .hl-box p { font-size: .9rem; }
+
+        .data-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: .85rem 0; border-bottom: 1px solid var(--border);
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-row__label { font-size: .9rem; font-weight: 500; }
+        .data-row__val   { font-size: .88rem; color: var(--mid); }
+
+        /* ══════════════════════════════
+           AGING CARDS
+        ══════════════════════════════ */
+        .aging { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1.2rem; }
+        .ac {
+            text-align: center; padding: 2rem 1.5rem;
+            border-radius: 14px; border: 1px solid var(--border); background: var(--white);
+            transition: transform .3s var(--ease);
+        }
+        .ac:hover { transform: translateY(-3px); }
+        .ac__circle {
+            width: 56px; height: 56px; border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .ac-blanco   .ac__circle { background: #eef6f9; }
+        .ac-reposado .ac__circle { background: #fef9ec; }
+        .ac-anejo    .ac__circle { background: #fdf0e0; }
+        .ac-extra    .ac__circle { background: #f8e8d5; }
+        .ac h4 { font-family: var(--ff-serif); font-size: 1.05rem; margin-bottom: .3rem; }
+        .ac .ac-time { font-size: .78rem; color: var(--light); margin-bottom: .55rem; }
+        .ac p { font-size: .84rem; }
+
+        /* ══════════════════════════════
+           CARDS
+        ══════════════════════════════ */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1.5rem; }
+        .card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 14px; padding: 2rem;
+            transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.07); }
+        .card__icon {
+            width: 44px; height: 44px; background: var(--green-lt); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem;
+        }
+        .card h4 { font-family: var(--ff-serif); font-size: 1.1rem; margin-bottom: .45rem; }
+        .card p  { font-size: .88rem; }
+
+        /* ══════════════════════════════
+           DISCLAIMER / FOOTER
+        ══════════════════════════════ */
+        .disclaimer {
+            background: var(--bg-warm); border-top: 1px solid var(--border);
+            padding: 1.2rem 0; text-align: center;
+        }
+        .disclaimer p { font-size: .76rem; color: var(--light); margin: 0 auto; }
+
+        footer {
+            background: var(--dark); color: rgba(255,255,255,.4);
+            padding: 3rem 0; text-align: center;
+        }
+        .footer-logo { font-family: var(--ff-serif); font-size: 1.2rem; color: #fff; display: block; margin-bottom: .5rem; }
+        .footer-logo span { color: var(--gold); }
+        footer p { font-size: .8rem; margin-top: .3rem; }
+        footer p + p { margin-top: 1.5rem; font-size: .72rem; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="container">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">Tequila <span>101</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html#uvod">Úvod</a></li>
+                <li><a href="index.html#historie">Historie</a></li>
+                <li><a href="index.html#rodina">Destiláty</a></li>
+                <li><a href="index.html#terroir">Terroir</a></li>
+                <li><a href="index.html#vyroba">Výroba</a></li>
+                <li><a href="index.html#top-tequily">Top Tequily</a></li>
+                <li><a href="svetova-cisla.html">Světová čísla</a></li>
+                <li><a href="referencni-tequila.html" class="active">Referenční tequila</a></li>
+                <li><a href="jak-cist-etiketu.html">Jak číst etiketu</a></li>
+                <li><a href="ochutnávka-1.html">Naše ochutnávka #1</a></li>
+            </ul>
+            <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero hero--sub" id="top">
+    <div class="hero__bg"></div>
+    <div class="container">
+        <div class="hero__content" style="padding-top:8rem;padding-bottom:4rem;">
+            <div class="hero__eyebrow">
+                <div class="hero__eyebrow-line"></div>
+                <span class="hero__eyebrow-text">Rodinná palírna z Valle</span>
+            </div>
+            <h1 class="hero__title">Referenční <em>tequila</em></h1>
+            <p class="hero__sub">Fortaleza — tequila vyráběná způsobem pradědů</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ SEKCE 1 — O ZNAČCE ══════════════════════════════ -->
+<section class="section section--white" id="o-znacce">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Rodinná palírna z Valle</span>
+            <h2>Fortaleza — Los Abuelos</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="two-col">
+            <div class="anim">
+                <p>
+                    Fortaleza je tequila čtvrté generace rodiny Sauza — jedné z nejslavnějších jmen v historii mexického destilátorství.
+                    Guillermo Erickson Sauza, pravnuk legendárního Cenobio Sauzy, se rozhodl opustit průmyslové metody
+                    a vrátit se ke způsobu výroby svých pradědů.
+                </p>
+                <p style="margin-top:1rem;">
+                    Palírna La Perseverancia se nachází přímo ve městě Tequila v Jalisco, v historickém centru původní tequilové kultury.
+                    Na rozdíl od velkovýrobců Fortaleza používá tradiční <strong>tahonu</strong> — těžký kamenný mlýn tažený koněm —
+                    k mletí upečených piñas. Fermentace probíhá v otevřených dřevěných tancích za přítomnosti vzduchu,
+                    destilace pak v malých měděných alambikách s omezenou kapacitou.
+                </p>
+                <p style="margin-top:1rem;">
+                    Výsledkem je tequila s výjimečnou autenticitou — surová síla agáve kombinovaná s komplexními minerálními
+                    a ovocnými tóny typickými pro Valle de Tequila. Každá šarže je limitovaná a osobně dohlížená výrobcem.
+                </p>
+                <div class="hl-box anim d1">
+                    <p>
+                        <strong>„Chceme dělat tequilu tak, jak ji dělali naši pradědové."</strong><br>
+                        — Guillermo Erickson Sauza, zakladatel Fortaleza (2005)
+                    </p>
+                </div>
+            </div>
+            <div class="anim d2">
+                <span class="badge">⚗️ NOM 1493 · La Perseverancia</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1493</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila (800–1200 m n.m.)</span></div>
+                    <div class="data-row"><span class="data-row__label">Agáve</span><span class="data-row__val">100% Blue Weber, Highland &amp; Lowland</span></div>
+                    <div class="data-row"><span class="data-row__label">Fermentace</span><span class="data-row__val">Otevřené dřevěné tanky</span></div>
+                    <div class="data-row"><span class="data-row__label">Destilace</span><span class="data-row__val">Měděné pot stilly</span></div>
+                    <div class="data-row"><span class="data-row__label">Mletí</span><span class="data-row__val">Tahona (kamenný mlýn) + roller mill</span></div>
+                    <div class="data-row"><span class="data-row__label">Zakladatel</span><span class="data-row__val">Guillermo Erickson Sauza (2005)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ SEKCE 2 — VIDEO ══════════════════════════════ -->
+<section class="section section--warm" id="video">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Pohled do palírny</span>
+            <h2>Prohlídka destilerie Fortaleza</h2>
+            <div class="divider"></div>
+            <p>Podívejte se na tradiční výrobu tequily přesně tak, jak ji dělali pradědové rodiny Sauza.</p>
+        </div>
+        <div class="anim d1">
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;margin-top:2rem;">
+                <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    src="https://www.youtube.com/embed/HjMgjZ3PiRw"
+                    title="Visiting Fortaleza Distillery"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ SEKCE 3 — PRODUKTOVÁ ŘADA ══════════════════════════════ -->
+<section class="section section--white" id="produkty">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Produktová řada</span>
+            <h2>Expresní linie</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="aging">
+            <div class="ac ac-blanco anim d1">
+                <div class="ac__circle">🫙</div>
+                <h4>Blanco</h4>
+                <div class="ac-time">Unaged · 40 % ABV</div>
+                <p>Křišťálově čistý, intenzivní agáve, citrus, pepř. Žádné přídavky.</p>
+            </div>
+            <div class="ac ac-reposado anim d2">
+                <div class="ac__circle">🪵</div>
+                <h4>Reposado</h4>
+                <div class="ac-time">6 měsíců · Americký dub</div>
+                <p>6 měsíců v amerických dubových sudech. Jemná vanilka, agáve stále dominuje.</p>
+            </div>
+            <div class="ac ac-anejo anim d3">
+                <div class="ac__circle">🥃</div>
+                <h4>Añejo</h4>
+                <div class="ac-time">2 roky · Americký dub</div>
+                <p>2 roky v americkém dubu. Karamel, sušené ovoce, plný závěr.</p>
+            </div>
+            <div class="ac ac-extra anim d4">
+                <div class="ac__circle">⚗️</div>
+                <h4>Still Strength Blanco</h4>
+                <div class="ac-time">Unfiltered · 46 % ABV</div>
+                <p>Unfiltered, unchill-filtered. 46% ABV. Surová síla agáve pro nadšence.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ SEKCE 4 — PROČ FORTALEZA ══════════════════════════════ -->
+<section class="section section--warm" id="proc-fortaleza">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Filozofie výroby</span>
+            <h2>Proč Fortaleza?</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="cards">
+            <div class="card anim d1">
+                <div class="card__icon">🪨</div>
+                <h4>Tahona</h4>
+                <p>Tradiční kamenný mlýn rozmělňující upečené piñas. Zachovává více vlákniny a agávových olejů pro komplexnější chuťový profil.</p>
+            </div>
+            <div class="card anim d2">
+                <div class="card__icon">🌿</div>
+                <h4>Bez přídavků</h4>
+                <p>Žádný glycerin, karamel ani jiné additives. 100% přírodní produkt. Co je v lahvi, přineslo agáve a čas.</p>
+            </div>
+            <div class="card anim d3">
+                <div class="card__icon">🏠</div>
+                <h4>Malá produkce</h4>
+                <p>Každá šarže je limitovaná. Osobní dohled výrobce na každém kroku — od pole až ke sklenici.</p>
+            </div>
+            <div class="card anim d4">
+                <div class="card__icon">🏆</div>
+                <h4>Certifikace</h4>
+                <p>NOM 1493, certifikováno CRT. Pravidelně oceňováno světovými degustacemi a zařazováno mezi top řemeslné tequily.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ DISCLAIMER ══════════════════════════════ -->
+<div class="disclaimer">
+    <div class="container">
+        <p>Tento report slouží pouze pro informační účely. Ohledně lékařského poradenství nebo diagnózy se obraťte na odborníka.</p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+    <div class="container">
+        <span class="footer-logo">Tequila <span>101</span></span>
+        <p>Komplexní odborná studie mexického národního destilátu</p>
+        <p>© 2025 · Obsah chráněn autorskými právy · Publikováno přes GitHub Pages</p>
+    </div>
+</footer>
+
+<script>
+/* ── Navigation ── */
+const nav     = document.getElementById('nav');
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+/* ── Scroll-reveal ── */
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => {
+    if (el.closest('.hero')) {
+        setTimeout(() => el.classList.add('visible'), 120);
+    } else {
+        revealObs.observe(el);
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Naše ochutnávka #1 — čtyři prémiové řemeslné tequily pod lupou: Ocho, Fortaleza, G4, Cascahuín. Srovnání tradičních výrobních metod z Valle a Altos regionů.">
+    <title>Naše ochutnávka #1 — Tequila 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:         #fafaf6;
+            --bg-warm:    #f5f1e8;
+            --white:      #ffffff;
+            --green:      #4a7c59;
+            --green-lt:   #e8f0ea;
+            --gold:       #b8965a;
+            --gold-lt:    #f5ede0;
+            --dark:       #1c1c1c;
+            --mid:        #5a5a5a;
+            --light:      #9a9a9a;
+            --border:     #e8e4dc;
+            --ff-serif:   'Playfair Display', Georgia, serif;
+            --ff-sans:    'Inter', system-ui, sans-serif;
+            --max-w:      1100px;
+            --pad-x:      clamp(1.5rem, 5vw, 3rem);
+            --section-py: clamp(4rem, 8vw, 8rem);
+            --ease:       cubic-bezier(.25,.46,.45,.94);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── Typography ── */
+        h1, h2, h3, h4 { font-family: var(--ff-serif); line-height: 1.25; }
+        h1 { font-size: clamp(2.6rem, 6vw, 5rem); }
+        h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        h4 { font-size: 1.05rem; }
+        p  { font-size: clamp(.93rem, 1.4vw, 1.05rem); color: var(--mid); max-width: 68ch; }
+        a  { color: var(--green); text-decoration: none; }
+
+        /* ── Layout helpers ── */
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+        .section    { padding: var(--section-py) 0; }
+        .section--warm  { background: var(--bg-warm); }
+        .section--white { background: var(--white); }
+
+        .label {
+            display: inline-block;
+            font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 1rem;
+        }
+        .divider { width: 3rem; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+
+        /* ── Scroll animations ── */
+        .anim {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: .1s; }
+        .d2 { transition-delay: .2s; }
+        .d3 { transition-delay: .3s; }
+        .d4 { transition-delay: .4s; }
+
+        /* ══════════════════════════════
+           NAV
+        ══════════════════════════════ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.2rem 0;
+            transition: background .3s var(--ease), box-shadow .3s var(--ease), padding .3s var(--ease);
+        }
+        .nav.scrolled {
+            background: rgba(250,250,246,.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--border);
+            padding: .75rem 0;
+        }
+        .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav__logo { font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 700; color: var(--dark); }
+        .nav__logo span { color: var(--gold); }
+
+        .nav__links { display: flex; gap: 2rem; list-style: none; }
+        .nav__links a {
+            font-size: .83rem; font-weight: 500; color: var(--mid); letter-spacing: .02em;
+            transition: color .2s;
+        }
+        .nav__links a:hover, .nav__links a.active { color: var(--dark); }
+
+        .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav__burger span { display: block; width: 22px; height: 2px; background: var(--dark); transition: .3s; }
+
+        @media (max-width: 780px) {
+            .nav__links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--bg); flex-direction: column; padding: 1rem var(--pad-x);
+                border-top: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            }
+            .nav__links.open { display: flex; }
+            .nav__burger { display: flex; }
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        .hero {
+            min-height: 100svh; display: flex; align-items: center;
+            position: relative; overflow: hidden; background: var(--white);
+        }
+        .hero--sub { min-height: 40vh; }
+        .hero__bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 80% 50%, rgba(184,150,90,.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 15% 80%, rgba(74,124,89,.05) 0%, transparent 60%);
+        }
+        .hero__content { position: relative; z-index: 2; padding-top: 6rem; }
+
+        .hero__eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+        .hero__eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+        .hero__eyebrow-text { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+        .hero__title { margin-bottom: 1.5rem; color: var(--dark); }
+        .hero__title em { color: var(--gold); font-style: italic; }
+
+        .hero__sub { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 52ch; margin-bottom: 3rem; }
+
+        /* ── section header ── */
+        .sh { margin-bottom: 3rem; }
+        .sh h2 { margin-bottom: .6rem; }
+
+        /* ── two-col ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: .4rem;
+            background: var(--green-lt); color: var(--green);
+            font-size: .78rem; font-weight: 500; padding: .35rem .85rem; border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+        .hl-box {
+            background: var(--gold-lt); border-left: 3px solid var(--gold);
+            padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;
+        }
+        .hl-box p { font-size: .9rem; }
+
+        .data-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: .85rem 0; border-bottom: 1px solid var(--border);
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-row__label { font-size: .9rem; font-weight: 500; }
+        .data-row__val   { font-size: .88rem; color: var(--mid); }
+
+        /* ══════════════════════════════
+           SROVNÁVACÍ TABULKA
+        ══════════════════════════════ */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        @media (max-width: 760px) {
+            .compare-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+        .compare-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.5rem;
+            transition: transform .3s var(--ease);
+        }
+        .compare-card:hover { transform: translateY(-3px); }
+        .compare-card__name {
+            font-family: var(--ff-serif); font-size: 1.15rem; font-weight: 600;
+            margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 2px solid var(--gold-lt);
+            color: var(--dark);
+        }
+
+        /* ══════════════════════════════
+           DISCLAIMER / FOOTER
+        ══════════════════════════════ */
+        .disclaimer {
+            background: var(--bg-warm); border-top: 1px solid var(--border);
+            padding: 1.2rem 0; text-align: center;
+        }
+        .disclaimer p { font-size: .76rem; color: var(--light); margin: 0 auto; }
+
+        footer {
+            background: var(--dark); color: rgba(255,255,255,.4);
+            padding: 3rem 0; text-align: center;
+        }
+        .footer-logo { font-family: var(--ff-serif); font-size: 1.2rem; color: #fff; display: block; margin-bottom: .5rem; }
+        .footer-logo span { color: var(--gold); }
+        footer p { font-size: .8rem; margin-top: .3rem; }
+        footer p + p { margin-top: 1.5rem; font-size: .72rem; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="container">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">Tequila <span>101</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html#uvod">Úvod</a></li>
+                <li><a href="index.html#historie">Historie</a></li>
+                <li><a href="index.html#rodina">Destiláty</a></li>
+                <li><a href="index.html#terroir">Terroir</a></li>
+                <li><a href="index.html#vyroba">Výroba</a></li>
+                <li><a href="index.html#top-tequily">Top Tequily</a></li>
+                <li><a href="svetova-cisla.html">Světová čísla</a></li>
+                <li><a href="referencni-tequila.html">Referenční tequila</a></li>
+                <li><a href="jak-cist-etiketu.html">Jak číst etiketu</a></li>
+                <li><a href="ochutnávka-1.html" class="active">Naše ochutnávka #1</a></li>
+            </ul>
+            <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero hero--sub" id="top">
+    <div class="hero__bg"></div>
+    <div class="container">
+        <div class="hero__content" style="padding-top:8rem;padding-bottom:4rem;">
+            <div class="hero__eyebrow">
+                <div class="hero__eyebrow-line"></div>
+                <span class="hero__eyebrow-text">Řemeslné tequily pod lupou</span>
+            </div>
+            <h1 class="hero__title">Naše ochutnávka <em>#1</em></h1>
+            <p class="hero__sub">Čtyři prémiové řemeslné tequily pod lupou — Ocho, Fortaleza, G4, Cascahuín</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ ÚVOD ══════════════════════════════ -->
+<section class="section section--white" id="uvod">
+    <div class="container">
+        <div class="two-col">
+            <div class="anim">
+                <span class="label">O této ochutnávce</span>
+                <h2>Co vás čeká</h2>
+                <div class="divider"></div>
+                <p>
+                    Čtyři lahve ze dvou ikonických regionů tequily — Valle de Tequila a Los Altos.
+                    Všechny značky jsou řemeslné, s maximálním důrazem na tradiční výrobní metody a bez přídavků.
+                </p>
+                <p style="margin-top:1rem;">
+                    Srovnáváme přímé výrobní procesy: tahonu vs. roller mill, otevřené fermentační tanky,
+                    rozdíly v terroir Valle vs. Altos a vliv single-estate konceptu na výsledný profil.
+                </p>
+                <p style="margin-top:1rem;">
+                    Stránka bude průběžně doplňována o naše poznámky a hodnocení po samotné ochutnávce.
+                    Zatím se můžeš seznámit s profilem každé lahve a připravit si vlastní očekávání.
+                </p>
+                <div class="hl-box anim d1">
+                    <p>
+                        <strong>Metodologie:</strong> Tasting probíhá při pokojové teplotě,
+                        ze správných skleniček (Riedel Tequila nebo Copita).
+                        Hodnocení na škále 1–10 bez přidané vody.
+                    </p>
+                </div>
+            </div>
+            <div class="anim d2">
+                <span class="badge">📋 Metadata ochutnávky</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">Datum ochutnávky</span><span class="data-row__val" style="font-style:italic;color:var(--light);">bude doplněno</span></div>
+                    <div class="data-row"><span class="data-row__label">Počet vzorků</span><span class="data-row__val">4</span></div>
+                    <div class="data-row"><span class="data-row__label">Regiony</span><span class="data-row__val">Valle de Tequila, Los Altos</span></div>
+                    <div class="data-row"><span class="data-row__label">Metoda</span><span class="data-row__val" style="font-style:italic;color:var(--light);">Blind / open tasting (bude upřesněno)</span></div>
+                    <div class="data-row"><span class="data-row__label">Hodnotitelé</span><span class="data-row__val" style="font-style:italic;color:var(--light);">bude doplněno</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ OCHO ══════════════════════════════ -->
+<section class="section section--warm" id="ocho">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Ocho · Single Estate · Altos</span>
+            <h2>Tequila Ocho</h2>
+            <div class="divider"></div>
+            <p>Jedinečný single estate koncept — každý ročník pochází z konkrétního ranče a roku sklizně, podobně jako víno.</p>
+        </div>
+        <div class="two-col">
+            <div class="anim">
+                <span class="badge">NOM 1474 · Carlos Camarena</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1474</span></div>
+                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">La Altena</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Los Altos, Jalisco</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 %</span></div>
+                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 200–1 500 Kč</span></div>
+                </div>
+            </div>
+            <div class="anim d1">
+                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
+                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
+                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
+                </div>
+                <div style="margin-top:1rem;">
+                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ FORTALEZA ══════════════════════════════ -->
+<section class="section section--white" id="fortaleza">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Fortaleza · Tradiční · Valle</span>
+            <h2>Fortaleza</h2>
+            <div class="divider"></div>
+            <p>Čtvrtá generace rodiny Sauza, tahona, otevřená fermentace, měděné pot stilly. Referenční tequila tradičních metod.</p>
+        </div>
+        <div class="two-col">
+            <div class="anim">
+                <span class="badge">NOM 1493 · Guillermo Erickson Sauza</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1493</span></div>
+                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">La Perseverancia</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila, Jalisco</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 % (Still Strength 46 %)</span></div>
+                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 400–1 800 Kč</span></div>
+                </div>
+            </div>
+            <div class="anim d1">
+                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
+                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
+                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
+                </div>
+                <div style="margin-top:1rem;">
+                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ G4 ══════════════════════════════ -->
+<section class="section section--warm" id="g4">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">G4 · Řemeslná · Valle</span>
+            <h2>G4 Tequila</h2>
+            <div class="divider"></div>
+            <p>Felipe Camarena a čtvrtá generace rodiny — El Pandillo, vlastní studna s pramenitou vodou, tahona i roller mill.</p>
+        </div>
+        <div class="two-col">
+            <div class="anim">
+                <span class="badge">NOM 1579 · Felipe Camarena</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1579</span></div>
+                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">El Pandillo</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila, Jalisco</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 %</span></div>
+                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 100–1 400 Kč</span></div>
+                </div>
+            </div>
+            <div class="anim d1">
+                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
+                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
+                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
+                </div>
+                <div style="margin-top:1rem;">
+                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ CASCAHUÍN ══════════════════════════════ -->
+<section class="section section--white" id="cascahuin">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Cascahuín · Řemeslná · Valle</span>
+            <h2>Cascahuín</h2>
+            <div class="divider"></div>
+            <p>Rodinná palírna z El Arenal v Valle. Additive-free, tradiční výroba s vlastním agávovým polem.</p>
+        </div>
+        <div class="two-col">
+            <div class="anim">
+                <span class="badge">NOM 1123 · Rodina Partida</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1123</span></div>
+                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">Cascahuín</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">El Arenal, Valle de Tequila</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo / Tahona</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">38–55 % (dle série)</span></div>
+                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 000–1 500 Kč</span></div>
+                </div>
+            </div>
+            <div class="anim d1">
+                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
+                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
+                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
+                </div>
+                <div style="margin-top:1rem;">
+                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ SROVNÁNÍ ══════════════════════════════ -->
+<section class="section section--warm" id="srovnani">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Přehled na první pohled</span>
+            <h2>Srovnání na první pohled</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="compare-grid">
+            <div class="compare-card anim d1">
+                <div class="compare-card__name">Ocho</div>
+                <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1474</span></div>
+                <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Los Altos</span></div>
+                <div class="data-row"><span class="data-row__label">Styl</span><span class="data-row__val">Single Estate</span></div>
+                <div class="data-row"><span class="data-row__label">Cena</span><span class="data-row__val">1 200–1 500 Kč</span></div>
+                <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+            </div>
+            <div class="compare-card anim d2">
+                <div class="compare-card__name">Fortaleza</div>
+                <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1493</span></div>
+                <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila</span></div>
+                <div class="data-row"><span class="data-row__label">Styl</span><span class="data-row__val">Tahona / Tradiční</span></div>
+                <div class="data-row"><span class="data-row__label">Cena</span><span class="data-row__val">1 400–1 800 Kč</span></div>
+                <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+            </div>
+            <div class="compare-card anim d3">
+                <div class="compare-card__name">G4</div>
+                <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1579</span></div>
+                <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila</span></div>
+                <div class="data-row"><span class="data-row__label">Styl</span><span class="data-row__val">Řemeslná / 4. generace</span></div>
+                <div class="data-row"><span class="data-row__label">Cena</span><span class="data-row__val">1 100–1 400 Kč</span></div>
+                <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+            </div>
+            <div class="compare-card anim d4">
+                <div class="compare-card__name">Cascahuín</div>
+                <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1123</span></div>
+                <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">El Arenal, Valle</span></div>
+                <div class="data-row"><span class="data-row__label">Styl</span><span class="data-row__val">Rodinná / Additive-free</span></div>
+                <div class="data-row"><span class="data-row__label">Cena</span><span class="data-row__val">1 000–1 500 Kč</span></div>
+                <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ DISCLAIMER ══════════════════════════════ -->
+<div class="disclaimer">
+    <div class="container">
+        <p>Tento report slouží pouze pro informační účely. Ohledně lékařského poradenství nebo diagnózy se obraťte na odborníka.</p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+    <div class="container">
+        <span class="footer-logo">Tequila <span>101</span></span>
+        <p>Komplexní odborná studie mexického národního destilátu</p>
+        <p>© 2025 · Obsah chráněn autorskými právy · Publikováno přes GitHub Pages</p>
+    </div>
+</footer>
+
+<script>
+/* ── Navigation ── */
+const nav     = document.getElementById('nav');
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+/* ── Scroll-reveal ── */
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => {
+    if (el.closest('.hero')) {
+        setTimeout(() => el.classList.add('visible'), 120);
+    } else {
+        revealObs.observe(el);
+    }
+});
+</script>
+</body>
+</html>
