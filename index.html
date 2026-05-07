@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Komplexní odborný průvodce světem tequily — historie, výroba, klasifikace a tržní dynamika mexického národního destilátu.">
+    <title>Tequila 101 — Průvodce světem mexického destilátu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        :root {
+            --bg:         #fafaf6;
+            --bg-warm:    #f5f1e8;
+            --white:      #ffffff;
+            --green:      #4a7c59;
+            --green-lt:   #e8f0ea;
+            --gold:       #b8965a;
+            --gold-lt:    #f5ede0;
+            --dark:       #1c1c1c;
+            --mid:        #5a5a5a;
+            --light:      #9a9a9a;
+            --border:     #e8e4dc;
+            --ff-serif:   'Playfair Display', Georgia, serif;
+            --ff-sans:    'Inter', system-ui, sans-serif;
+            --max-w:      1100px;
+            --pad-x:      clamp(1.5rem, 5vw, 3rem);
+            --section-py: clamp(4rem, 8vw, 8rem);
+            --ease:       cubic-bezier(.25,.46,.45,.94);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--ff-sans);
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── Typography ── */
+        h1, h2, h3, h4 { font-family: var(--ff-serif); line-height: 1.25; }
+        h1 { font-size: clamp(2.6rem, 6vw, 5rem); }
+        h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        h4 { font-size: 1.05rem; }
+        p  { font-size: clamp(.93rem, 1.4vw, 1.05rem); color: var(--mid); max-width: 68ch; }
+        a  { color: var(--green); text-decoration: none; }
+
+        /* ── Layout helpers ── */
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+        .section    { padding: var(--section-py) 0; }
+        .section--warm  { background: var(--bg-warm); }
+        .section--white { background: var(--white); }
+
+        .label {
+            display: inline-block;
+            font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 1rem;
+        }
+        .divider { width: 3rem; height: 2px; background: var(--gold); margin: 1.5rem 0; }
+
+        /* ── Scroll animations ── */
+        .anim {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: .1s; }
+        .d2 { transition-delay: .2s; }
+        .d3 { transition-delay: .3s; }
+        .d4 { transition-delay: .4s; }
+
+        /* ══════════════════════════════
+           NAV
+        ══════════════════════════════ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.2rem 0;
+            transition: background .3s var(--ease), box-shadow .3s var(--ease), padding .3s var(--ease);
+        }
+        .nav.scrolled {
+            background: rgba(250,250,246,.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--border);
+            padding: .75rem 0;
+        }
+        .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav__logo { font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 700; color: var(--dark); }
+        .nav__logo span { color: var(--gold); }
+
+        .nav__links { display: flex; gap: 2rem; list-style: none; }
+        .nav__links a {
+            font-size: .83rem; font-weight: 500; color: var(--mid); letter-spacing: .02em;
+            transition: color .2s;
+        }
+        .nav__links a:hover, .nav__links a.active { color: var(--dark); }
+
+        .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav__burger span { display: block; width: 22px; height: 2px; background: var(--dark); transition: .3s; }
+
+        @media (max-width: 780px) {
+            .nav__links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--bg); flex-direction: column; padding: 1rem var(--pad-x);
+                border-top: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            }
+            .nav__links.open { display: flex; }
+            .nav__burger { display: flex; }
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        .hero {
+            min-height: 100svh; display: flex; align-items: center;
+            position: relative; overflow: hidden; background: var(--white);
+        }
+        .hero__bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 80% 50%, rgba(184,150,90,.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 15% 80%, rgba(74,124,89,.05) 0%, transparent 60%);
+        }
+        .hero__deco {
+            position: absolute; right: -4%; top: 50%; transform: translateY(-50%);
+            width: clamp(260px, 42vw, 560px); opacity: .07; pointer-events: none;
+        }
+        .hero__content { position: relative; z-index: 2; padding-top: 6rem; }
+
+        .hero__eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+        .hero__eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+        .hero__eyebrow-text { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+        .hero__title { margin-bottom: 1.5rem; color: var(--dark); }
+        .hero__title em { color: var(--gold); font-style: italic; }
+
+        .hero__sub { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 52ch; margin-bottom: 3rem; }
+
+        .hero__scroll {
+            display: inline-flex; align-items: center; gap: .75rem;
+            color: var(--light); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+        }
+        .hero__scroll-line {
+            width: 1px; height: 44px; background: var(--border);
+            position: relative; overflow: hidden;
+        }
+        .hero__scroll-line::after {
+            content: ''; position: absolute; top: -100%; left: 0; right: 0; height: 100%;
+            background: var(--gold); animation: slide-down 2s ease-in-out infinite;
+        }
+        @keyframes slide-down { 0% { top: -100%; } 100% { top: 100%; } }
+
+        .hero__stats {
+            display: flex; flex-wrap: wrap; gap: 3rem;
+            margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border);
+        }
+        .hero__stat-num  { font-family: var(--ff-serif); font-size: 2.4rem; color: var(--dark); line-height: 1; }
+        .hero__stat-label { font-size: .78rem; color: var(--light); margin-top: .3rem; }
+
+        /* ══════════════════════════════
+           INTRO
+        ══════════════════════════════ */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: .4rem;
+            background: var(--green-lt); color: var(--green);
+            font-size: .78rem; font-weight: 500; padding: .35rem .85rem; border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+        .hl-box {
+            background: var(--gold-lt); border-left: 3px solid var(--gold);
+            padding: 1.2rem 1.5rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem;
+        }
+        .hl-box p { font-size: .9rem; }
+
+        .data-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: .85rem 0; border-bottom: 1px solid var(--border);
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-row__label { font-size: .9rem; font-weight: 500; }
+        .data-row__val   { font-size: .88rem; color: var(--mid); }
+
+        /* ══════════════════════════════
+           TIMELINE
+        ══════════════════════════════ */
+        .timeline { position: relative; padding-left: 1.5rem; }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: .5rem; bottom: 0;
+            width: 1px; background: linear-gradient(to bottom, var(--gold), transparent);
+        }
+        .tl-item { position: relative; padding: 0 0 2.75rem 2rem; }
+        .tl-item::before {
+            content: ''; position: absolute; left: -2rem; top: .4rem;
+            width: 9px; height: 9px; border-radius: 50%;
+            background: var(--gold); box-shadow: 0 0 0 3px var(--gold-lt);
+        }
+        .tl-year  { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+        .tl-title { font-family: var(--ff-serif); font-size: 1.15rem; margin-bottom: .45rem; }
+        .tl-text  { font-size: .9rem; }
+
+        /* ══════════════════════════════
+           CARDS
+        ══════════════════════════════ */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1.5rem; }
+        .card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 14px; padding: 2rem;
+            transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.07); }
+        .card__icon {
+            width: 44px; height: 44px; background: var(--green-lt); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem;
+        }
+        .card h4 { font-family: var(--ff-serif); font-size: 1.1rem; margin-bottom: .45rem; }
+        .card p  { font-size: .88rem; }
+
+        /* ══════════════════════════════
+           TERROIR
+        ══════════════════════════════ */
+        .terroir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+        @media (max-width: 640px) { .terroir-grid { grid-template-columns: 1fr; } }
+
+        .tc { border-radius: 18px; padding: 2.5rem; }
+        .tc--high {
+            background: linear-gradient(135deg,#e8f0ea,#f0f6f1);
+            border: 1px solid #c8deca;
+        }
+        .tc--val {
+            background: linear-gradient(135deg,#f5ede0,#faf1e6);
+            border: 1px solid #dcc9a0;
+        }
+        .tc__lbl { font-size: .7rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: .6rem; }
+        .tc--high .tc__lbl { color: var(--green); }
+        .tc--val  .tc__lbl { color: #8a6a2a; }
+        .tc h3 { margin-bottom: .9rem; }
+
+        .ttag { display: inline-block; font-size: .78rem; padding: .25rem .7rem; border-radius: 100px; margin: .2rem; }
+        .tc--high .ttag { background: rgba(74,124,89,.12); color: var(--green); }
+        .tc--val  .ttag { background: rgba(184,150,90,.15); color: #7a5e1a; }
+
+        /* ══════════════════════════════
+           PRODUCTION STEPS
+        ══════════════════════════════ */
+        .steps {
+            display: grid; grid-template-columns: repeat(7,1fr);
+            background: var(--bg); border-radius: 16px; overflow: hidden;
+        }
+        @media (max-width: 860px) { .steps { grid-template-columns: repeat(4,1fr); } }
+        @media (max-width: 480px) { .steps { grid-template-columns: repeat(2,1fr); } }
+
+        .step {
+            text-align: center; padding: 1.75rem 1rem;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .step:last-child { border-right: none; }
+        .step__num {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: var(--gold-lt); color: var(--gold);
+            font-size: .82rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto .7rem;
+        }
+        .step h4 { font-size: .83rem; font-weight: 600; font-family: var(--ff-sans); margin-bottom: .2rem; }
+        .step p  { font-size: .72rem; color: var(--light); max-width: none; }
+
+        /* ══════════════════════════════
+           AGING CARDS
+        ══════════════════════════════ */
+        .aging { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1.2rem; }
+        .ac {
+            text-align: center; padding: 2rem 1.5rem;
+            border-radius: 14px; border: 1px solid var(--border); background: var(--white);
+            transition: transform .3s var(--ease);
+        }
+        .ac:hover { transform: translateY(-3px); }
+        .ac__circle {
+            width: 56px; height: 56px; border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .ac-blanco   .ac__circle { background: #eef6f9; }
+        .ac-reposado .ac__circle { background: #fef9ec; }
+        .ac-anejo    .ac__circle { background: #fdf0e0; }
+        .ac-extra    .ac__circle { background: #f8e8d5; }
+        .ac h4 { font-family: var(--ff-serif); font-size: 1.05rem; margin-bottom: .3rem; }
+        .ac .ac-time { font-size: .78rem; color: var(--light); margin-bottom: .55rem; }
+        .ac p { font-size: .84rem; }
+
+        .mixto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.75rem; }
+        @media (max-width: 580px) { .mixto-grid { grid-template-columns: 1fr; } }
+
+        /* ══════════════════════════════
+           MARKET
+        ══════════════════════════════ */
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+        @media (max-width: 860px) { .market-grid { grid-template-columns: 1fr; } }
+
+        .chart-box {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem;
+        }
+        .chart-title {
+            font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--mid); margin-bottom: 1.2rem;
+        }
+
+        .mrow {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: .85rem 0; border-bottom: 1px solid var(--border);
+        }
+        .mrow:first-child { border-top: 1px solid var(--border); }
+        .mrow__label { font-size: .9rem; font-weight: 500; }
+        .mrow__right { display: flex; gap: 1.5rem; align-items: center; }
+        .mrow__val   { font-family: var(--ff-serif); font-size: 1.1rem; }
+        .trend {
+            font-size: .75rem; padding: .2rem .55rem; border-radius: 100px; white-space: nowrap;
+        }
+        .up   { background: #e8f4e8; color: #2d7a2d; }
+        .down { background: #fde8e8; color: #c02020; }
+
+        .mrow--highlight { background: linear-gradient(90deg,rgba(184,150,90,.06),transparent); border-radius: 8px; }
+
+        .reg-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1.2rem; margin-top: 2rem; }
+        .reg-card {
+            background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem;
+            transition: transform .3s var(--ease);
+        }
+        .reg-card:hover { transform: translateY(-3px); }
+        .reg-lbl { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+        .reg-num { font-family: var(--ff-serif); font-size: 2rem; margin-bottom: .2rem; }
+        .reg-card p { font-size: .84rem; }
+
+        /* ══════════════════════════════
+           UNESCO
+        ══════════════════════════════ */
+        .un-banner {
+            display: flex; align-items: center; gap: 3rem;
+            background: linear-gradient(135deg,var(--white),var(--green-lt));
+            border: 1px solid #c8deca; border-radius: 20px; padding: 3rem;
+        }
+        @media (max-width: 600px) { .un-banner { flex-direction: column; text-align: center; gap: 1.75rem; } }
+        .un-badge {
+            flex-shrink: 0; width: 96px; height: 96px; border-radius: 50%;
+            background: var(--green); display: flex; align-items: center; justify-content: center; font-size: 2.4rem;
+        }
+
+        /* ══════════════════════════════
+           SOURCES
+        ══════════════════════════════ */
+        .sources { display: grid; grid-template-columns: repeat(auto-fit,minmax(270px,1fr)); gap: 1.4rem; }
+        .src-card {
+            background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+            padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem;
+            transition: border-color .2s;
+        }
+        .src-card:hover { border-color: var(--gold); }
+        .src-icon {
+            flex-shrink: 0; width: 40px; height: 40px; background: var(--gold-lt);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        .src-card h4 { font-family: var(--ff-sans); font-size: .9rem; font-weight: 600; margin-bottom: .25rem; }
+        .src-card p  { font-size: .8rem; }
+
+        /* ══════════════════════════════
+           DISCLAIMER / FOOTER
+        ══════════════════════════════ */
+        .disclaimer {
+            background: var(--bg-warm); border-top: 1px solid var(--border);
+            padding: 1.2rem 0; text-align: center;
+        }
+        .disclaimer p { font-size: .76rem; color: var(--light); margin: 0 auto; }
+
+        footer {
+            background: var(--dark); color: rgba(255,255,255,.4);
+            padding: 3rem 0; text-align: center;
+        }
+        .footer-logo { font-family: var(--ff-serif); font-size: 1.2rem; color: #fff; display: block; margin-bottom: .5rem; }
+        .footer-logo span { color: var(--gold); }
+        footer p { font-size: .8rem; margin-top: .3rem; }
+        footer p + p { margin-top: 1.5rem; font-size: .72rem; }
+
+        /* ── section header ── */
+        .sh { margin-bottom: 3rem; }
+        .sh h2 { margin-bottom: .6rem; }
+
+        /* ── two-col history ── */
+        .hist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+        @media (max-width: 760px) { .hist-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="container">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo">Tequila <span>101</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#uvod">Úvod</a></li>
+                <li><a href="#historie">Historie</a></li>
+                <li><a href="#rodina">Destiláty</a></li>
+                <li><a href="#terroir">Terroir</a></li>
+                <li><a href="#vyroba">Výroba</a></li>
+                <li><a href="#trh">Trh</a></li>
+                <li><a href="#unesco">UNESCO</a></li>
+            </ul>
+            <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero" id="top">
+    <div class="hero__bg"></div>
+
+    <!-- Agave SVG illustration -->
+    <svg class="hero__deco" viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="200" y1="500" x2="200" y2="100" stroke="#4a7c59" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="200" cy="92" r="9" fill="#4a7c59"/>
+        <!-- main leaves -->
+        <path d="M200 460 C195 380 160 290 90 210 C50 160 20 110 38 68 C56 26 118 44 158 108 C178 140 196 180 200 220" stroke="#4a7c59" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M200 460 C205 380 240 290 310 210 C350 160 380 110 362 68 C344 26 282 44 242 108 C222 140 204 180 200 220" stroke="#4a7c59" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- mid leaves -->
+        <path d="M200 380 C195 320 155 270 90 245 C58 232 38 242 44 265 C50 288 88 302 148 318 C172 325 198 332 200 335" stroke="#4a7c59" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <path d="M200 380 C205 320 245 270 310 245 C342 232 362 242 356 265 C350 288 312 302 252 318 C228 325 202 332 200 335" stroke="#4a7c59" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <!-- upper leaves -->
+        <path d="M200 290 C196 248 168 215 122 198 C96 188 80 195 85 214 C90 233 120 244 168 257 C184 261 199 265 200 267" stroke="#4a7c59" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M200 290 C204 248 232 215 278 198 C304 188 320 195 315 214 C310 233 280 244 232 257 C216 261 201 265 200 267" stroke="#4a7c59" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <!-- accent lines gold -->
+        <path d="M200 220 C196 195 178 178 150 170 C134 164 124 169 127 182 C130 195 150 202 180 210 C190 213 199 216 200 217" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M200 220 C204 195 222 178 250 170 C266 164 276 169 273 182 C270 195 250 202 220 210 C210 213 201 216 200 217" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- spines -->
+        <line x1="80" y1="75" x2="88" y2="70" stroke="#4a7c59" stroke-width="1.5"/>
+        <line x1="320" y1="75" x2="312" y2="70" stroke="#4a7c59" stroke-width="1.5"/>
+        <line x1="38" y1="265" x2="32" y2="262" stroke="#4a7c59" stroke-width="1.2"/>
+        <line x1="362" y1="265" x2="368" y2="262" stroke="#4a7c59" stroke-width="1.2"/>
+    </svg>
+
+    <div class="container">
+        <div class="hero__content">
+            <div class="hero__eyebrow anim">
+                <div class="hero__eyebrow-line"></div>
+                <span class="hero__eyebrow-text">Mexický národní destilát</span>
+            </div>
+
+            <h1 class="hero__title anim d1">
+                Komplexní<br>
+                průvodce světem<br>
+                <em>Tequily</em>
+            </h1>
+
+            <p class="hero__sub anim d2">
+                Od posvátných kořenů aztécké civilizace po globální luxusní fenomén.
+                Odborná studie historie, výroby a tržní dynamiky mexického národního destilátu.
+            </p>
+
+            <div class="hero__scroll anim d3">
+                <div class="hero__scroll-line"></div>
+                Procházet
+            </div>
+
+            <div class="hero__stats anim d4">
+                <div>
+                    <div class="hero__stat-num" data-count="2000" data-suffix="+">0</div>
+                    <div class="hero__stat-label">let tradice agáve</div>
+                </div>
+                <div>
+                    <div class="hero__stat-num" data-count="181" data-suffix="">0</div>
+                    <div class="hero__stat-label">municipalit v oblasti DOT</div>
+                </div>
+                <div>
+                    <div class="hero__stat-num" data-count="25.7" data-suffix=" mld $" data-dec="1">0</div>
+                    <div class="hero__stat-label">hodnota trhu (2024)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ ÚVOD ══════════════════════════════ -->
+<section class="section section--white" id="uvod">
+    <div class="container">
+        <div class="two-col">
+            <div class="anim">
+                <span class="label">Kulturní a právní entita</span>
+                <h2>Víc než jen destilát</h2>
+                <div class="divider"></div>
+                <p>
+                    Tequila nepředstavuje pouze alkoholický nápoj, nýbrž vysoce sofistikovaný symbol mexické národní
+                    identity ukotveného v tisícileté tradici a přísném moderním regulačním rámci.
+                </p>
+                <p style="margin-top:1rem;">
+                    Z pohledu experta na destiláty je tequila regionálně specifický produkt vyráběný výhradně z modrého agáve
+                    (<em>Agave tequilana</em> Weber, odrůda modrá) v rámci vymezených oblastí Mexika chráněných Denominací původu (DOT).
+                </p>
+                <div class="hl-box anim d1">
+                    <p>
+                        Podobně jako šampaňské ve Francii nebo koňak — termín <strong>„tequila" je celosvětově uznáván jako
+                        duševní vlastnictví Mexika</strong>, chráněný mezinárodním právem.
+                    </p>
+                </div>
+            </div>
+
+            <div class="anim d2">
+                <span class="badge">⚖️ Právní rámec NOM-006-SCFI-2012</span>
+                <div style="margin-top:1.25rem;">
+                    <div class="data-row"><span class="data-row__label">Certifikační orgán</span><span class="data-row__val">CRT (zal. 1994)</span></div>
+                    <div class="data-row"><span class="data-row__label">Povolená surovina</span><span class="data-row__val">Modré agáve</span></div>
+                    <div class="data-row"><span class="data-row__label">Kód na lahvi</span><span class="data-row__val">NOM + 4 číslice palírny</span></div>
+                    <div class="data-row"><span class="data-row__label">Ochrana platí od</span><span class="data-row__val">1974</span></div>
+                    <div class="data-row"><span class="data-row__label">Oblast produkce</span><span class="data-row__val">5 států Mexika (181 municipalit)</span></div>
+                    <div class="data-row"><span class="data-row__label">Trasovatelnost</span><span class="data-row__val">Pole → spotřebitel</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ HISTORIE ══════════════════════════════ -->
+<section class="section" id="historie">
+    <div class="container">
+        <div class="hist-grid">
+            <div class="anim">
+                <span class="label">Od bohů k luxusu</span>
+                <h2>Historický vývoj</h2>
+                <div class="divider"></div>
+                <p>
+                    Kontinuální narativ transformace, jenž začíná hluboko v předkolumbovské éře
+                    a vrcholí v současné pozici prémiového globálního destilátu.
+                </p>
+                <p style="margin-top:1rem;">
+                    Agáve provází mexické kultury více než 2 000 let — od posvátného nápoje bohů
+                    přes španělský destilační objev až po moderní světový luxusní produkt.
+                </p>
+            </div>
+
+            <div class="timeline anim d1">
+                <div class="tl-item">
+                    <div class="tl-year">Před 2 000 lety</div>
+                    <div class="tl-title">Předkolumbovské kořeny a Pulque</div>
+                    <p class="tl-text">
+                        Agáve bylo považováno za posvátný dar od bohů. Domorodé kmeny uctívaly bohyni Mayahuel
+                        a boha Patecatla. Pulque — fermentovaná míza agáve — položil základy kultury pěstování trvající dodnes.
+                    </p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1519</div>
+                    <div class="tl-title">Španělský vliv a zrod destilace</div>
+                    <p class="tl-text">
+                        Dobyvatelé přivezli znalost destilace a měděné alambiky. Vzniklo „mezcalové víno z Tequily" —
+                        první syntéza evropské technologie a americké suroviny. Město Tequila v Jalisco se stalo centrem výroby.
+                    </p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1795</div>
+                    <div class="tl-title">První oficiální licence</div>
+                    <p class="tl-text">
+                        Rodina Cuervo obdržela první officiální licenci k výrobě tequily. Počátek průmyslové éry
+                        a rozmach vývozu do Spojených států.
+                    </p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1974</div>
+                    <div class="tl-title">Denominace původu (DOT)</div>
+                    <p class="tl-text">
+                        Tequila získala officiální status DOT — stala se prvním mexickým produktem
+                        s mezinárodně uznávanou ochranou zeměpisného označení.
+                    </p>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1994</div>
+                    <div class="tl-title">Consejo Regulador del Tequila</div>
+                    <p class="tl-text">
+                        Zaloźení CRT jako certifikačního orgánu dohlížejícího na každý aspekt dodavatelského
+                        řetězce — od pole až ke spotřebiteli.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ RODINA ══════════════════════════════ -->
+<section class="section section--white" id="rodina">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Příbuzní tequily</span>
+            <h2>Rodina agávových destilátů</h2>
+            <div class="divider"></div>
+            <p>
+                Tequila patří do široké rodiny mexických lihovin vyráběných z rostlin rodu Agave.
+                Každý destilát má vlastní denominaci původu, specifickou surovinu a jedinečný charakter.
+            </p>
+        </div>
+        <div class="cards">
+            <div class="card anim d1">
+                <div class="card__icon">🌵</div>
+                <h4>Mezcal</h4>
+                <p>Širší kategorie z více než 30 druhů agáve (nejčastěji Espadín). Tradiční pečení v zemních pecích dodává typický kouřový profil.</p>
+            </div>
+            <div class="card anim d2">
+                <div class="card__icon">🍃</div>
+                <h4>Raicilla</h4>
+                <p>Destilát z Jalisco z agáve Maximiliana nebo Inaequidens. Převážně řemeslná výroba, divočejší a ovocnější profil.</p>
+            </div>
+            <div class="card anim d3">
+                <div class="card__icon">🏔️</div>
+                <h4>Bacanora</h4>
+                <p>Tradiční nápoj ze státu Sonora z agáve Angustifolia. Po desetiletí nelegální, nyní chráněna vlastní denominací.</p>
+            </div>
+            <div class="card anim d4">
+                <div class="card__icon">🌿</div>
+                <h4>Sotol</h4>
+                <p>Technicky pochází z rostliny <em>Dasylirion wheeleri</em> — botanicky odlišné, ale příbuzné pouštní rostliny z Chihuahua.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ TERROIR ══════════════════════════════ -->
+<section class="section" id="terroir">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Geografická determinace</span>
+            <h2>Terroir tequily</h2>
+            <div class="divider"></div>
+            <p>
+                Tequila je produktem svého prostředí. Oblast DOT zahrnuje 181 municipalit v 5 státech Mexika.
+                Jalisco dominuje produkci s přibližně 95% podílem.
+            </p>
+        </div>
+        <div class="terroir-grid">
+            <div class="tc tc--high anim d1">
+                <div class="tc__lbl">Los Altos</div>
+                <h3>Vysočina</h3>
+                <p style="margin-bottom:1.25rem;font-size:.9rem;">
+                    Nadmořská výška 2 000–2 300 m, červená půda <em>tierra roja</em>.
+                    Chladnější noci a vulkanická půda bohatá na železo dávají agáve sladší charakter.
+                </p>
+                <div>
+                    <span class="ttag">🍓 Sladké</span>
+                    <span class="ttag">🌸 Květinové</span>
+                    <span class="ttag">🍑 Ovocné</span>
+                    <span class="ttag">✨ Jemné</span>
+                </div>
+            </div>
+            <div class="tc tc--val anim d2">
+                <div class="tc__lbl">El Valle</div>
+                <h3>Údolí</h3>
+                <p style="margin-bottom:1.25rem;font-size:.9rem;">
+                    Nadmořská výška 1 100–1 600 m, vulkanická půda <em>tierra negra</em>.
+                    Teplejší klima a tmavá půda dávají agáve robustnější, minerální charakter.
+                </p>
+                <div>
+                    <span class="ttag">🌍 Zemité</span>
+                    <span class="ttag">💎 Minerální</span>
+                    <span class="ttag">🌶️ Kořeněné</span>
+                    <span class="ttag">🔥 Robustní</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ VÝROBA ══════════════════════════════ -->
+<section class="section section--white" id="vyroba">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Od pole ke sklenici</span>
+            <h2>Výrobní proces</h2>
+            <div class="divider"></div>
+            <p>Sedm klíčových kroků transformujících modré agáve do krystalicky čistého destilátu světové třídy.</p>
+        </div>
+
+        <div class="steps anim" style="margin-bottom:3.5rem;">
+            <div class="step"><div class="step__num">1</div><h4>Jima</h4><p>Sklizeň piñas</p></div>
+            <div class="step"><div class="step__num">2</div><h4>Vaření</h4><p>Hydrolýza škrobů</p></div>
+            <div class="step"><div class="step__num">3</div><h4>Extrakce</h4><p>Lisování cukrů</p></div>
+            <div class="step"><div class="step__num">4</div><h4>Fermentace</h4><p>Kvašení kvasnicemi</p></div>
+            <div class="step"><div class="step__num">5</div><h4>Destilace</h4><p>Dvojitá destilace</p></div>
+            <div class="step"><div class="step__num">6</div><h4>Zrání</h4><p>V dubových sudech</p></div>
+            <div class="step" style="border-right:none;"><div class="step__num">7</div><h4>Lahvování</h4><p>Výhradně v Mexiku</p></div>
+        </div>
+
+        <div class="sh anim">
+            <span class="label">Klasifikace</span>
+            <h3 style="font-size:clamp(1.3rem,2.5vw,1.8rem);">Třídy podle zrání</h3>
+        </div>
+
+        <div class="aging">
+            <div class="ac ac-blanco anim d1">
+                <div class="ac__circle">🫙</div>
+                <h4>Blanco</h4>
+                <div class="ac-time">0 – 59 dní</div>
+                <p>Čistá, intenzivní chuť agáve. Křišťálově čirá. Nejautentičtější a nejpřímočařejší forma tequily.</p>
+            </div>
+            <div class="ac ac-reposado anim d2">
+                <div class="ac__circle">🪵</div>
+                <h4>Reposado</h4>
+                <div class="ac-time">2 – 12 měsíců v dubu</div>
+                <p>Vyvážená kombinace svěžesti agáve a jemných dřevěných tónů. Zlatavá barva, hebčí textura.</p>
+            </div>
+            <div class="ac ac-anejo anim d3">
+                <div class="ac__circle">🥃</div>
+                <h4>Añejo</h4>
+                <div class="ac-time">1 – 3 roky (sudy ≤ 600 l)</div>
+                <p>Komplexní, bohaté aroma. Vanilka, karamel, dub. Tmavě zlatá barva a dlouhý doznívající závěr.</p>
+            </div>
+            <div class="ac ac-extra anim d4">
+                <div class="ac__circle">⭐</div>
+                <h4>Extra Añejo</h4>
+                <div class="ac-time">Více než 3 roky</div>
+                <p>Nejvyšší třída. Výjimečná komplexita, mahagonová barva. Srovnatelné s prémiovou aged whisky.</p>
+            </div>
+        </div>
+
+        <div class="mixto-grid">
+            <div class="hl-box anim">
+                <strong>100 % de Agave</strong>
+                <p style="margin-top:.5rem;">Veškerý cukr pochází výhradně z modrého agáve. Povinně lahvováno v Mexiku. Nejvyšší kvalita a autenticita.</p>
+            </div>
+            <div class="hl-box anim d1" style="border-color:var(--border);background:var(--bg);">
+                <strong>Tequila Mixto</strong>
+                <p style="margin-top:.5rem;">Minimálně 51 % cukrů z agáve, zbytek z jiných zdrojů (nejčastěji třtinový cukr). Levnější varianta.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ TRH ══════════════════════════════ -->
+<section class="section" id="trh">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Tržní dynamika</span>
+            <h2>Nejrychleji rostoucí destilát světa</h2>
+            <div class="divider"></div>
+            <p>
+                Tequila je v současnosti nejrychleji rostoucím segmentem mezi hlavními kategoriemi lihovin.
+                V USA objemově předstihla americkou whisky i rum a stala se po vodce nejprodávanějším destilátem.
+            </p>
+        </div>
+
+        <div class="market-grid">
+            <div class="anim">
+                <div class="chart-box">
+                    <div class="chart-title">Globální podíl na trhu destilátů (hodnota, 2024–2025)</div>
+                    <canvas id="globalChart" height="280"></canvas>
+                </div>
+            </div>
+            <div class="anim d1">
+                <div class="chart-box">
+                    <div class="chart-title">Prodeje v USA — objem v mil. 9l beden (2024)</div>
+                    <canvas id="usaChart" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="anim" style="margin-top:2rem;">
+            <div class="chart-box">
+                <div class="chart-title">Přehled trendů prodeje v USA (2024 vs 2023)</div>
+                <div class="mrow">
+                    <span class="mrow__label" style="font-weight:700;color:var(--dark);">Kategorie</span>
+                    <span class="mrow__right">
+                        <span style="font-size:.78rem;font-weight:600;color:var(--mid);">Objem (mil. beden)</span>
+                        <span style="font-size:.78rem;font-weight:600;color:var(--mid);">Trend</span>
+                    </span>
+                </div>
+                <div class="mrow">
+                    <span class="mrow__label">Vodka</span>
+                    <span class="mrow__right"><span class="mrow__val">74,1</span><span class="trend down">▼ −1,1 %</span></span>
+                </div>
+                <div class="mrow mrow--highlight">
+                    <span class="mrow__label" style="font-weight:600;">🏆 Tequila &amp; Mezcal</span>
+                    <span class="mrow__right"><span class="mrow__val">32,3</span><span class="trend up">▲ +2,0 %</span></span>
+                </div>
+                <div class="mrow">
+                    <span class="mrow__label">Americká Whisky</span>
+                    <span class="mrow__right"><span class="mrow__val">30,3</span><span class="trend down">▼ −2,7 %</span></span>
+                </div>
+                <div class="mrow">
+                    <span class="mrow__label">Rum</span>
+                    <span class="mrow__right"><span class="mrow__val">20,7</span><span class="trend down">▼ −8,9 %</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reg-grid">
+            <div class="reg-card anim">
+                <div class="reg-lbl">Severní Amerika</div>
+                <div class="reg-num">34,2 %</div>
+                <p>Dominantní trh destilátů. Tequila zde zaznamenává dvouciferné tempo růstu hodnoty.</p>
+            </div>
+            <div class="reg-card anim d1">
+                <div class="reg-lbl">Evropa</div>
+                <div class="reg-num">27,8 %</div>
+                <p>Prudce rostoucí poptávka po prémiové tequile, zejména ve Velké Británii a Německu.</p>
+            </div>
+            <div class="reg-card anim d2">
+                <div class="reg-lbl">Asie &amp; Pacifik</div>
+                <div class="reg-num">+8 % / rok</div>
+                <p>Největší regionální trh lihovin. Tequila teprve začíná, ale predikce jsou optimistické.</p>
+            </div>
+            <div class="reg-card anim d3">
+                <div class="reg-lbl">USA — podíl na exportu</div>
+                <div class="reg-num">67 %</div>
+                <p>Přes dvě třetiny veškerého mexického exportu tequily míří do USA.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ UNESCO ══════════════════════════════ -->
+<section class="section section--white" id="unesco">
+    <div class="container">
+        <div class="sh anim" style="margin-bottom:2rem;">
+            <span class="label">Světové kulturní dědictví</span>
+            <h2>UNESCO ochrana</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="un-banner anim">
+            <div class="un-badge">🌍</div>
+            <div>
+                <h3 style="margin-bottom:.75rem;">Krajina agáve a stará průmyslová zařízení Tequily (2006)</h3>
+                <p style="max-width:none;">
+                    UNESCO uznalo tuto oblast jako součást světového kulturního dědictví. Oblast o rozloze přes
+                    <strong>34 000 hektarů</strong> je živým svědectvím o synkretismu mezi předhispánskými tradicemi
+                    pěstování agáve a evropskou destilační technologií přivezenou španělskými conquistadory.
+                    Je to první mexický krajinný produkt s touto prestižní ochranou.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ ZDROJE ══════════════════════════════ -->
+<section class="section" id="zdroje">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Odborné reference</span>
+            <h2>Expertní zdroje</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="sources">
+            <a href="https://www.crt.org.mx" target="_blank" rel="noopener noreferrer" class="src-card anim d1">
+                <div class="src-icon">⚖️</div>
+                <div>
+                    <h4>Consejo Regulador del Tequila (CRT)</h4>
+                    <p>Oficiální statistiky, certifikace a regulační informace · crt.org.mx</p>
+                </div>
+            </a>
+            <a href="https://www.tequilamatchmaker.com" target="_blank" rel="noopener noreferrer" class="src-card anim d2">
+                <div class="src-icon">🔍</div>
+                <div>
+                    <h4>Tequila Matchmaker</h4>
+                    <p>Databáze transparentnosti a výrobních procesů · tequilamatchmaker.com</p>
+                </div>
+            </a>
+            <a href="https://www.internationaltequilaacademy.com" target="_blank" rel="noopener noreferrer" class="src-card anim d3">
+                <div class="src-icon">🎓</div>
+                <div>
+                    <h4>International Tequila Academy</h4>
+                    <p>Profesionální certifikace a vzdělávání · internationaltequilaacademy.com</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ DISCLAIMER ══════════════════════════════ -->
+<div class="disclaimer">
+    <div class="container">
+        <p>Tento report slouží pouze pro informační účely. Ohledně lékařského poradenství nebo diagnózy se obraťte na odborníka.</p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+    <div class="container">
+        <span class="footer-logo">Tequila <span>101</span></span>
+        <p>Komplexní odborná studie mexického národního destilátu</p>
+        <p>© 2025 · Obsah chráněn autorskými právy · Publikováno přes GitHub Pages</p>
+    </div>
+</footer>
+
+<script>
+/* ── Navigation ── */
+const nav     = document.getElementById('nav');
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    highlightNav();
+}, { passive: true });
+
+burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+function highlightNav() {
+    const sections  = document.querySelectorAll('section[id]');
+    const anchors   = document.querySelectorAll('.nav__links a');
+    let current = '';
+    sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 130) current = s.id;
+    });
+    anchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}
+
+/* ── Scroll-reveal ── */
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => {
+    if (el.closest('.hero')) {
+        setTimeout(() => el.classList.add('visible'), 120);
+    } else {
+        revealObs.observe(el);
+    }
+});
+
+/* ── Animated counters ── */
+function animCount(el) {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const dec    = parseInt(el.dataset.dec)  || 0;
+    const dur    = 2000;
+    const t0     = performance.now();
+    (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const v = target * (1 - Math.pow(1 - p, 3));
+        el.textContent = v.toFixed(dec) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+    })(performance.now());
+}
+
+const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) { animCount(e.target); cntObs.unobserve(e.target); }
+    });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
+
+/* ── Charts ── */
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#5a5a5a';
+
+// Global market share — donut
+new Chart(document.getElementById('globalChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Whisky 28,6 %', 'Vodka 22,3 %', 'Rum 12,8 %', 'Tequila & Mezcal 8,9 %', 'Ostatní 27,4 %'],
+        datasets: [{
+            data: [28.6, 22.3, 12.8, 8.9, 27.4],
+            backgroundColor: ['#d4b896','#b8c8d8','#c8a0a0','#b8965a','#d8d8d0'],
+            borderWidth: 2,
+            borderColor: '#ffffff',
+            hoverOffset: 7,
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '62%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 14, font: { size: 11 }, usePointStyle: true, pointStyleWidth: 8 }
+            },
+            tooltip: {
+                callbacks: { label: ctx => ' ' + ctx.label }
+            }
+        }
+    }
+});
+
+// USA sales — bar
+new Chart(document.getElementById('usaChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Vodka', 'Tequila\n& Mezcal', 'Am. Whisky', 'Rum'],
+        datasets: [{
+            label: 'mil. beden',
+            data: [74.1, 32.3, 30.3, 20.7],
+            backgroundColor: [
+                'rgba(184,200,216,.75)',
+                'rgba(184,150,90,.9)',
+                'rgba(212,184,150,.75)',
+                'rgba(200,160,160,.75)',
+            ],
+            borderColor: ['#b8c8d8','#b8965a','#d4b896','#c8a0a0'],
+            borderWidth: 1,
+            borderRadius: 7,
+            borderSkipped: false,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + ' mil. beden' } }
+        },
+        scales: {
+            x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+            y: {
+                grid: { color: 'rgba(0,0,0,.05)' },
+                ticks: { font: { size: 11 } },
+                beginAtZero: true,
+            }
+        }
+    }
+});
+
+/* ── Smooth scroll polyfill ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+});
+</script>
+</body>
+</html>
