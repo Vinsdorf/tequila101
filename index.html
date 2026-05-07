@@ -135,16 +135,7 @@
             opacity: .22; pointer-events: none;
             object-fit: cover; object-position: center;
         }
-        .hero__content { position: relative; z-index: 2; padding-top: 6rem; text-align: center; }
-        .hero__eyebrow { justify-content: center; }
-        .hero__sub { margin-left: auto; margin-right: auto; }
-        .hero__scroll { display: inline-flex; }
-        .hero__stats { justify-content: center; }
-
-        .hero__logo {
-            display: block; width: 180px; height: auto;
-            margin: 0 auto 2.5rem;
-        }
+        .hero__content { position: relative; z-index: 2; padding-top: 6rem; }
 
         .hero__eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
         .hero__eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
@@ -424,7 +415,27 @@
         }
         .flavor-legend { display: flex; flex-direction: column; gap: .85rem; }
         .flavor-legend-item { display: flex; align-items: center; gap: .75rem; }
-        .flavor-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+        .flavor-legend-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; }
+        .flavor-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
+        .ff-btn {
+            font-size: .78rem; font-weight: 500; padding: .3rem .9rem;
+            border-radius: 100px; border: 2px solid var(--border);
+            background: var(--white); color: var(--mid); cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s;
+        }
+        .ff-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+        .brand-card__logo {
+            width: 64px; height: 64px; object-fit: contain;
+            margin-bottom: .55rem; display: block; margin-left: auto; margin-right: auto;
+            border-radius: 8px;
+        }
+        .brand-card__fallback {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--gold-lt); color: var(--gold);
+            font-family: var(--ff-serif); font-size: 1.4rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto .55rem;
+        }
         .flavor-legend-name { font-size: .88rem; font-weight: 600; min-width: 90px; }
         .flavor-legend-desc { font-size: .8rem; color: var(--mid); }
 
@@ -489,6 +500,7 @@
                 <li><a href="#rodina">Destiláty</a></li>
                 <li><a href="#terroir">Terroir</a></li>
                 <li><a href="#vyroba">Výroba</a></li>
+                <li><a href="#chuty">Chuťový profil</a></li>
                 <li><a href="#trh">Trh</a></li>
                 <li><a href="#unesco">UNESCO</a></li>
                 <li><a href="#top-tequily">Top Tequily</a></li>
@@ -511,8 +523,7 @@
 
     <div class="container">
         <div class="hero__content">
-            <img src="logo.svg" alt="Tequila 101 logo" class="hero__logo anim">
-            <div class="hero__eyebrow anim d1">
+            <div class="hero__eyebrow anim">
                 <div class="hero__eyebrow-line"></div>
                 <span class="hero__eyebrow-text">Mexický národní destilát</span>
             </div>
@@ -798,9 +809,13 @@
                 <p style="margin-top:.5rem;">Minimálně 51 % cukrů z agáve, zbytek z jiných zdrojů (nejčastěji třtinový cukr). Levnější varianta.</p>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Issue #7 — Chuťový profil -->
-        <div style="margin-top:4rem;" class="anim">
+<!-- ══════════════════════════════ CHUŤOVÝ PROFIL ══════════════════════════════ -->
+<section class="section section--warm" id="chuty">
+    <div class="container">
+        <div class="anim">
             <div class="sh">
                 <span class="label">Senzorický profil</span>
                 <h3 style="font-size:clamp(1.3rem,2.5vw,1.8rem);">Chuťový profil tequily</h3>
@@ -809,26 +824,32 @@
             </div>
             <div class="flavor-wrap">
                 <div class="flavor-chart-box anim d1">
+                    <div class="flavor-filter" id="flavorFilter">
+                        <button class="ff-btn active" data-idx="0">Blanco</button>
+                        <button class="ff-btn active" data-idx="1">Reposado</button>
+                        <button class="ff-btn active" data-idx="2">Añejo</button>
+                        <button class="ff-btn active" data-idx="3">Extra Añejo</button>
+                    </div>
                     <canvas id="flavorChart" height="320"></canvas>
                 </div>
                 <div class="flavor-legend anim d2">
                     <div class="flavor-legend-item">
-                        <span class="flavor-legend-dot" style="background:#4a7c59;"></span>
+                        <span class="flavor-legend-dot" style="background:#4a7c59; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; font-size:.9rem;">🫙</span>
                         <span class="flavor-legend-name">Blanco</span>
                         <span class="flavor-legend-desc">Intenzivní agáve, citrusové tóny, minerálnost. Nejčistší forma.</span>
                     </div>
                     <div class="flavor-legend-item">
-                        <span class="flavor-legend-dot" style="background:#b8965a;"></span>
+                        <span class="flavor-legend-dot" style="background:#b8965a; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; font-size:.9rem;">🪵</span>
                         <span class="flavor-legend-name">Reposado</span>
                         <span class="flavor-legend-desc">Vyváženost — agáve + jemné dřevo, karamel, vanilka.</span>
                     </div>
                     <div class="flavor-legend-item">
-                        <span class="flavor-legend-dot" style="background:#c07020;"></span>
+                        <span class="flavor-legend-dot" style="background:#c07020; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; font-size:.9rem;">🥃</span>
                         <span class="flavor-legend-name">Añejo</span>
                         <span class="flavor-legend-desc">Výraznější dřevo, sušené ovoce, čokoláda, tabák.</span>
                     </div>
                     <div class="flavor-legend-item">
-                        <span class="flavor-legend-dot" style="background:#8a4a10;"></span>
+                        <span class="flavor-legend-dot" style="background:#8a4a10; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; font-size:.9rem;">⭐</span>
                         <span class="flavor-legend-name">Extra Añejo</span>
                         <span class="flavor-legend-desc">Mahagonová komplexita, dlouhý závěr. Srovnatelné s aged whisky.</span>
                     </div>
@@ -959,6 +980,45 @@
     </div>
 </section>
 
+<!-- ══════════════════════════════ TOP TEQUILY ══════════════════════════════ -->
+<section class="section section--warm" id="top-tequily">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Doporučené značky</span>
+            <h2>Top tequily světa</h2>
+            <div class="divider"></div>
+            <p>Selekce prémiových a řemeslných výrobců, které reprezentují to nejlepší z mexického destilátorství — od rodinných palíren po kultovní single estate tequily.</p>
+        </div>
+
+        <div class="brand-grid anim d1">
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/g4tequila.com" alt="G4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">G4</div><div class="brand-card__name">G4</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/tequilafortaleza.com" alt="Fortaleza" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">F</div><div class="brand-card__name">Fortaleza</div><div class="brand-card__sub">Valle · Tradiční</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/tapatiotequila.com" alt="Tapatio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">T</div><div class="brand-card__name">Tapatio</div><div class="brand-card__sub">Altos · Rodinná</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/ochotequila.com" alt="Ocho" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">O</div><div class="brand-card__name">Ocho</div><div class="brand-card__sub">Altos · Single Estate</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/siete-leguas.com.mx" alt="Siete Leguas" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">SL</div><div class="brand-card__name">Siete Leguas</div><div class="brand-card__sub">Altos · Prémiová</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/tequilacascahuin.com" alt="Cascahuín" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">C</div><div class="brand-card__name">Cascahuín</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/eltesorotequila.com" alt="El Tesoro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">ET</div><div class="brand-card__name">El Tesoro</div><div class="brand-card__sub">Altos · Tradiční</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/casaherradura.com" alt="Herradura" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">H</div><div class="brand-card__name">Herradura</div><div class="brand-card__sub">Valle · Historická</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/donfulano.com" alt="Don Fulano" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">DF</div><div class="brand-card__name">Don Fulano</div><div class="brand-card__sub">Valle · Artisan</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/lalotequila.com" alt="Lalo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">L</div><div class="brand-card__name">Lalo</div><div class="brand-card__sub">Lowlands · BNL Blanco</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/pasotetequila.com" alt="Pasote" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">P</div><div class="brand-card__name">Pasote</div><div class="brand-card__sub">Highlands · Craft</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/siempretequila.com" alt="Siempre" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">S</div><div class="brand-card__name">Siempre</div><div class="brand-card__sub">Highlands · Artisan</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/montagave.com" alt="Montagave" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">M</div><div class="brand-card__name">Montagave</div><div class="brand-card__sub">Altos · Craft</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/cabezatequila.com" alt="Cabeza" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">C</div><div class="brand-card__name">Cabeza</div><div class="brand-card__sub">Valle · BNL</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/vivamexicotequila.com" alt="Viva México" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">VM</div><div class="brand-card__name">Viva México</div><div class="brand-card__sub">Valle · Artisan</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/claseazul.com" alt="Clase Azul" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">CA</div><div class="brand-card__name">Clase Azul</div><div class="brand-card__sub">Altos · Ultra Premium</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/artenom.com" alt="ArteNOM" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">AN</div><div class="brand-card__name">ArteNOM</div><div class="brand-card__sub">Multi Estate · Select</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/tresgeneraciones.com" alt="Tres Generaciones" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">TG</div><div class="brand-card__name">Tres Generaciones</div><div class="brand-card__sub">Highlands · Heritage</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/grancoramino.com" alt="Gran Coramino" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">GC</div><div class="brand-card__name">Gran Coramino</div><div class="brand-card__sub">Valle · Cristalino</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/komostequila.com" alt="Komos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">K</div><div class="brand-card__name">Komos</div><div class="brand-card__sub">Jalisco · Añejo Rosa</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/calle23tequila.com" alt="Calle 23" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">C23</div><div class="brand-card__name">Calle 23</div><div class="brand-card__sub">Altos · Craft Blanco</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/t1tequila.com" alt="T1 Tequila Uno" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">T1</div><div class="brand-card__name">T1 Tequila Uno</div><div class="brand-card__sub">Valle · Germán González</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/tearsofllloronatequila.com" alt="Tears of Llorona" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">TL</div><div class="brand-card__name">Tears of Llorona</div><div class="brand-card__sub">Extra Añejo · Specialty</div></div>
+            <div class="brand-card"><img class="brand-card__logo" src="https://logo.clearbit.com/ciertospirits.com" alt="Cierto" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand-card__fallback" style="display:none">CI</div><div class="brand-card__name">Cierto</div><div class="brand-card__sub">Highlands · Private Coll.</div></div>
+        </div>
+    </div>
+</section>
+
 <!-- ══════════════════════════════ UNESCO ══════════════════════════════ -->
 <section class="section section--white" id="unesco">
     <div class="container">
@@ -978,45 +1038,6 @@
                     Je to první mexický krajinný produkt s touto prestižní ochranou.
                 </p>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════════════ TOP TEQUILY ══════════════════════════════ -->
-<section class="section section--warm" id="top-tequily">
-    <div class="container">
-        <div class="sh anim">
-            <span class="label">Doporučené značky</span>
-            <h2>Top tequily světa</h2>
-            <div class="divider"></div>
-            <p>Selekce prémiových a řemeslných výrobců, které reprezentují to nejlepší z mexického destilátorství — od rodinných palíren po kultovní single estate tequily.</p>
-        </div>
-
-        <div class="brand-grid anim d1">
-            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">G4</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🏔️</span><div class="brand-card__name">Fortaleza</div><div class="brand-card__sub">Valle · Tradiční</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌵</span><div class="brand-card__name">Tapatio</div><div class="brand-card__sub">Altos · Rodinná</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌾</span><div class="brand-card__name">Ocho</div><div class="brand-card__sub">Altos · Single Estate</div></div>
-            <div class="brand-card"><span class="brand-card__icon">⭐</span><div class="brand-card__name">Siete Leguas</div><div class="brand-card__sub">Altos · Prémiová</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌄</span><div class="brand-card__name">Cascahuín</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🥃</span><div class="brand-card__name">El Tesoro</div><div class="brand-card__sub">Altos · Tradiční</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🏛️</span><div class="brand-card__name">Herradura</div><div class="brand-card__sub">Valle · Historická</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">Don Fulano</div><div class="brand-card__sub">Valle · Artisan</div></div>
-            <div class="brand-card"><span class="brand-card__icon">✨</span><div class="brand-card__name">Lalo</div><div class="brand-card__sub">Lowlands · BNL Blanco</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌱</span><div class="brand-card__name">Pasote</div><div class="brand-card__sub">Highlands · Craft</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌸</span><div class="brand-card__name">Siempre</div><div class="brand-card__sub">Highlands · Artisan</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🏔️</span><div class="brand-card__name">Montagave</div><div class="brand-card__sub">Altos · Craft</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌵</span><div class="brand-card__name">Cabeza</div><div class="brand-card__sub">Valle · BNL</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🎉</span><div class="brand-card__name">Viva México</div><div class="brand-card__sub">Valle · Artisan</div></div>
-            <div class="brand-card"><span class="brand-card__icon">💎</span><div class="brand-card__name">Clase Azul</div><div class="brand-card__sub">Altos · Ultra Premium</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🗺️</span><div class="brand-card__name">ArteNOM</div><div class="brand-card__sub">Multi Estate · Select</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">Tres Generaciones</div><div class="brand-card__sub">Highlands · Heritage</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🥂</span><div class="brand-card__name">Gran Coramino</div><div class="brand-card__sub">Valle · Cristalino</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌹</span><div class="brand-card__name">Komos</div><div class="brand-card__sub">Jalisco · Añejo Rosa</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🔬</span><div class="brand-card__name">Calle 23</div><div class="brand-card__sub">Altos · Craft Blanco</div></div>
-            <div class="brand-card"><span class="brand-card__icon">🌊</span><div class="brand-card__name">T1 Tequila Uno</div><div class="brand-card__sub">Valle · Germán González</div></div>
-            <div class="brand-card"><span class="brand-card__icon">💧</span><div class="brand-card__name">Tears of Llorona</div><div class="brand-card__sub">Extra Añejo · Specialty</div></div>
-            <div class="brand-card"><span class="brand-card__icon">⭐</span><div class="brand-card__name">Cierto</div><div class="brand-card__sub">Highlands · Private Coll.</div></div>
         </div>
     </div>
 </section>
@@ -1200,7 +1221,7 @@ new Chart(document.getElementById('usaChart'), {
 });
 
 /* ── Flavor profile radar (Issue #7) ── */
-new Chart(document.getElementById('flavorChart'), {
+const flavorChartInstance = new Chart(document.getElementById('flavorChart'), {
     type: 'radar',
     data: {
         labels: ['Intenzita agáve', 'Ovocnost', 'Sladkost', 'Kořeněnost', 'Dřevo / dub', 'Komplexita'],
@@ -1257,6 +1278,17 @@ new Chart(document.getElementById('flavorChart'), {
             }
         }
     }
+});
+
+/* ── Flavor profile toggle (Issue #11) ── */
+document.querySelectorAll('.ff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const idx = parseInt(btn.dataset.idx);
+        const ds  = flavorChartInstance.data.datasets[idx];
+        const isActive = btn.classList.toggle('active');
+        ds.hidden = !isActive;
+        flavorChartInstance.update();
+    });
 });
 
 /* ── Spirits category horizontal bar (Issue #5) ── */
