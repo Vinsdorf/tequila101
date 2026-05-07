@@ -398,6 +398,71 @@
         /* ── two-col history ── */
         .hist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
         @media (max-width: 760px) { .hist-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        /* ══════════════════════════════
+           FLAVOR PROFILE
+        ══════════════════════════════ */
+        .flavor-wrap {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+            margin-top: 3.5rem;
+        }
+        @media (max-width: 760px) { .flavor-wrap { grid-template-columns: 1fr; gap: 2rem; } }
+        .flavor-chart-box {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem;
+        }
+        .flavor-legend { display: flex; flex-direction: column; gap: .85rem; }
+        .flavor-legend-item { display: flex; align-items: center; gap: .75rem; }
+        .flavor-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+        .flavor-legend-name { font-size: .88rem; font-weight: 600; min-width: 90px; }
+        .flavor-legend-desc { font-size: .8rem; color: var(--mid); }
+
+        /* ══════════════════════════════
+           SPIRITS OVERVIEW
+        ══════════════════════════════ */
+        .spirits-insight {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            gap: 1.2rem; margin-top: 2rem;
+        }
+        .si-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.5rem;
+        }
+        .si-card__lbl { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+        .si-card__num { font-family: var(--ff-serif); font-size: 1.9rem; margin-bottom: .3rem; }
+        .si-card p { font-size: .83rem; }
+
+        /* ══════════════════════════════
+           BRAND GRID (Top Tequily)
+        ══════════════════════════════ */
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: .9rem;
+        }
+        .brand-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.4rem 1rem; text-align: center;
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+            cursor: default;
+        }
+        .brand-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+            border-color: var(--gold);
+        }
+        .brand-card__icon { font-size: 1.7rem; margin-bottom: .55rem; display: block; }
+        .brand-card__name { font-family: var(--ff-serif); font-size: .95rem; font-weight: 600; color: var(--dark); line-height: 1.3; }
+        .brand-card__sub  { font-size: .7rem; color: var(--light); margin-top: .3rem; letter-spacing: .03em; }
+
+        .brand-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+        .bf-tag {
+            font-size: .75rem; font-weight: 500; padding: .3rem .85rem;
+            border-radius: 100px; border: 1px solid var(--border);
+            background: var(--white); color: var(--mid); cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s;
+        }
+        .bf-tag.active, .bf-tag:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
     </style>
 </head>
 <body>
@@ -415,6 +480,7 @@
                 <li><a href="#vyroba">Výroba</a></li>
                 <li><a href="#trh">Trh</a></li>
                 <li><a href="#unesco">UNESCO</a></li>
+                <li><a href="#top-tequily">Top Tequily</a></li>
             </ul>
             <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
                 <span></span><span></span><span></span>
@@ -427,27 +493,101 @@
 <section class="hero" id="top">
     <div class="hero__bg"></div>
 
-    <!-- Agave SVG illustration -->
-    <svg class="hero__deco" viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="200" y1="500" x2="200" y2="100" stroke="#4a7c59" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="200" cy="92" r="9" fill="#4a7c59"/>
-        <!-- main leaves -->
-        <path d="M200 460 C195 380 160 290 90 210 C50 160 20 110 38 68 C56 26 118 44 158 108 C178 140 196 180 200 220" stroke="#4a7c59" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M200 460 C205 380 240 290 310 210 C350 160 380 110 362 68 C344 26 282 44 242 108 C222 140 204 180 200 220" stroke="#4a7c59" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <!-- mid leaves -->
-        <path d="M200 380 C195 320 155 270 90 245 C58 232 38 242 44 265 C50 288 88 302 148 318 C172 325 198 332 200 335" stroke="#4a7c59" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-        <path d="M200 380 C205 320 245 270 310 245 C342 232 362 242 356 265 C350 288 312 302 252 318 C228 325 202 332 200 335" stroke="#4a7c59" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-        <!-- upper leaves -->
-        <path d="M200 290 C196 248 168 215 122 198 C96 188 80 195 85 214 C90 233 120 244 168 257 C184 261 199 265 200 267" stroke="#4a7c59" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M200 290 C204 248 232 215 278 198 C304 188 320 195 315 214 C310 233 280 244 232 257 C216 261 201 265 200 267" stroke="#4a7c59" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <!-- accent lines gold -->
-        <path d="M200 220 C196 195 178 178 150 170 C134 164 124 169 127 182 C130 195 150 202 180 210 C190 213 199 216 200 217" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M200 220 C204 195 222 178 250 170 C266 164 276 169 273 182 C270 195 250 202 220 210 C210 213 201 216 200 217" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <!-- spines -->
-        <line x1="80" y1="75" x2="88" y2="70" stroke="#4a7c59" stroke-width="1.5"/>
-        <line x1="320" y1="75" x2="312" y2="70" stroke="#4a7c59" stroke-width="1.5"/>
-        <line x1="38" y1="265" x2="32" y2="262" stroke="#4a7c59" stroke-width="1.2"/>
-        <line x1="362" y1="265" x2="368" y2="262" stroke="#4a7c59" stroke-width="1.2"/>
+    <!-- Agave landscape illustration -->
+    <svg class="hero__deco" viewBox="0 0 580 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+            <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%" stop-color="#f7efe0"/>
+                <stop offset="100%" stop-color="#fdf8f0"/>
+            </linearGradient>
+            <linearGradient id="hGround" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%" stop-color="#d4b87a"/>
+                <stop offset="100%" stop-color="#b89858"/>
+            </linearGradient>
+            <linearGradient id="hMtn" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%" stop-color="#7aaa78"/>
+                <stop offset="100%" stop-color="#5a8a60"/>
+            </linearGradient>
+        </defs>
+        <!-- Sky -->
+        <rect width="580" height="500" fill="url(#hSky)" rx="20"/>
+        <!-- Sun halos -->
+        <circle cx="445" cy="118" r="72" fill="rgba(184,150,90,0.07)"/>
+        <circle cx="445" cy="118" r="50" fill="rgba(184,150,90,0.11)"/>
+        <circle cx="445" cy="118" r="30" fill="rgba(184,150,90,0.35)"/>
+        <circle cx="445" cy="118" r="18" fill="#c9a456"/>
+        <!-- Far mountains -->
+        <path d="M0 278 L65 205 L135 248 L205 182 L285 228 L360 172 L438 212 L508 188 L580 222 L580 500 L0 500Z" fill="#d8e8d0" opacity="0.65"/>
+        <!-- Middle hills -->
+        <path d="M0 338 L88 265 L185 308 L295 248 L405 288 L498 262 L580 292 L580 500 L0 500Z" fill="url(#hMtn)"/>
+        <!-- Ground -->
+        <path d="M0 392 Q145 375 292 386 Q438 397 580 378 L580 500 L0 500Z" fill="url(#hGround)"/>
+
+        <!-- Hacienda silhouette -->
+        <g transform="translate(345,318)" opacity="0.45">
+            <rect x="-28" y="-48" width="56" height="48" fill="none" stroke="#8a6a30" stroke-width="1.4"/>
+            <path d="M-33 -48 L0 -69 L33 -48" fill="none" stroke="#8a6a30" stroke-width="1.4" stroke-linejoin="round"/>
+            <rect x="10" y="-84" width="9" height="36" fill="none" stroke="#8a6a30" stroke-width="1.2"/>
+            <path d="M14 -87 C11 -95 17 -103 13 -111" stroke="#cbb898" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.7"/>
+            <rect x="-7" y="-20" width="14" height="20" fill="none" stroke="#8a6a30" stroke-width="1"/>
+            <rect x="-22" y="-39" width="11" height="11" fill="none" stroke="#8a6a30" stroke-width="1"/>
+            <rect x="11"  y="-39" width="11" height="11" fill="none" stroke="#8a6a30" stroke-width="1"/>
+        </g>
+
+        <!-- Agave large left -->
+        <g transform="translate(62,428)">
+            <line x1="0" y1="0" x2="0" y2="-115" stroke="#4a7c59" stroke-width="4" stroke-linecap="round"/>
+            <path d="M0 -22 C-5 -44 -26 -75 -72 -104 C-87 -113 -92 -104 -83 -93 C-65 -74 -36 -57 -5 -40" stroke="#4a7c59" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M0 -22 C5 -44 26 -75 72 -104 C87 -113 92 -104 83 -93 C65 -74 36 -57 5 -40" stroke="#4a7c59" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M0 -44 C-4 -60 -20 -82 -56 -110 C-69 -118 -74 -110 -67 -100 C-52 -84 -27 -68 -4 -52" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -44 C4 -60 20 -82 56 -110 C69 -118 74 -110 67 -100 C52 -84 27 -68 4 -52" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -64 C-3 -76 -13 -92 -36 -110 C-45 -116 -47 -110 -42 -102 C-31 -90 -15 -78 -2 -66" stroke="#5a8c69" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M0 -64 C3 -76 13 -92 36 -110 C45 -116 47 -110 42 -102 C31 -90 15 -78 2 -66" stroke="#5a8c69" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M0 -78 C-2 -88 -9 -97 -22 -106 C-26 -109 -27 -105 -24 -100 C-17 -93 -7 -84 0 -79" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -78 C2 -88 9 -97 22 -106 C26 -109 27 -105 24 -100 C17 -93 7 -84 0 -79" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="0" cy="-117" r="6.5" fill="#4a7c59"/>
+        </g>
+
+        <!-- Agave medium right -->
+        <g transform="translate(496,446)">
+            <line x1="0" y1="0" x2="0" y2="-82" stroke="#4a7c59" stroke-width="3" stroke-linecap="round"/>
+            <path d="M0 -16 C-4 -32 -19 -54 -54 -76 C-65 -82 -68 -75 -62 -67 C-48 -53 -27 -41 -4 -29" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -16 C4 -32 19 -54 54 -76 C65 -82 68 -75 62 -67 C48 -53 27 -41 4 -29" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -33 C-3 -46 -15 -62 -42 -80 C-51 -86 -53 -79 -48 -72 C-36 -59 -19 -49 -2 -39" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M0 -33 C3 -46 15 -62 42 -80 C51 -86 53 -79 48 -72 C36 -59 19 -49 2 -39" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="0" cy="-85" r="5" fill="#4a7c59"/>
+        </g>
+
+        <!-- Agave small center -->
+        <g transform="translate(292,458)">
+            <line x1="0" y1="0" x2="0" y2="-58" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M0 -13 C-3 -24 -14 -38 -38 -55 C-46 -60 -48 -54 -43 -47 C-33 -37 -18 -29 -2 -21" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M0 -13 C3 -24 14 -38 38 -55 C46 -60 48 -54 43 -47 C33 -37 18 -29 2 -21" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M0 -27 C-2 -36 -10 -44 -28 -54 C-34 -58 -35 -52 -30 -47 C-21 -40 -11 -34 -1 -29" stroke="#5a8c69" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M0 -27 C2 -36 10 -44 28 -54 C34 -58 35 -52 30 -47 C21 -40 11 -34 1 -29" stroke="#5a8c69" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="0" cy="-60" r="4" fill="#4a7c59"/>
+        </g>
+
+        <!-- Distant agave silhouettes -->
+        <g opacity="0.35">
+            <g transform="translate(165,378)">
+                <line x1="0" y1="0" x2="0" y2="-34" stroke="#4a7c59" stroke-width="1.5"/>
+                <path d="M0 -8 C-2 -14 -8 -22 -23 -32" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M0 -8 C2 -14 8 -22 23 -32" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <circle cx="0" cy="-36" r="2.5" fill="#4a7c59"/>
+            </g>
+            <g transform="translate(385,372)">
+                <line x1="0" y1="0" x2="0" y2="-30" stroke="#4a7c59" stroke-width="1.5"/>
+                <path d="M0 -7 C-2 -12 -7 -18 -19 -27" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M0 -7 C2 -12 7 -18 19 -27" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <circle cx="0" cy="-32" r="2.2" fill="#4a7c59"/>
+            </g>
+            <g transform="translate(228,382)">
+                <line x1="0" y1="0" x2="0" y2="-26" stroke="#4a7c59" stroke-width="1.2"/>
+                <path d="M0 -6 C-2 -10 -6 -16 -17 -24" stroke="#4a7c59" stroke-width="1" fill="none" stroke-linecap="round"/>
+                <path d="M0 -6 C2 -10 6 -16 17 -24" stroke="#4a7c59" stroke-width="1" fill="none" stroke-linecap="round"/>
+            </g>
+        </g>
     </svg>
 
     <div class="container">
@@ -738,6 +878,46 @@
                 <p style="margin-top:.5rem;">Minimálně 51 % cukrů z agáve, zbytek z jiných zdrojů (nejčastěji třtinový cukr). Levnější varianta.</p>
             </div>
         </div>
+
+        <!-- Issue #7 — Chuťový profil -->
+        <div style="margin-top:4rem;" class="anim">
+            <div class="sh">
+                <span class="label">Senzorický profil</span>
+                <h3 style="font-size:clamp(1.3rem,2.5vw,1.8rem);">Chuťový profil tequily</h3>
+                <div class="divider"></div>
+                <p>Radarový diagram porovnává klíčové senzorické osy čtyř tříd tequily — od svěžesti blanc po komplexitu extra añejo.</p>
+            </div>
+            <div class="flavor-wrap">
+                <div class="flavor-chart-box anim d1">
+                    <canvas id="flavorChart" height="320"></canvas>
+                </div>
+                <div class="flavor-legend anim d2">
+                    <div class="flavor-legend-item">
+                        <span class="flavor-legend-dot" style="background:#4a7c59;"></span>
+                        <span class="flavor-legend-name">Blanco</span>
+                        <span class="flavor-legend-desc">Intenzivní agáve, citrusové tóny, minerálnost. Nejčistší forma.</span>
+                    </div>
+                    <div class="flavor-legend-item">
+                        <span class="flavor-legend-dot" style="background:#b8965a;"></span>
+                        <span class="flavor-legend-name">Reposado</span>
+                        <span class="flavor-legend-desc">Vyváženost — agáve + jemné dřevo, karamel, vanilka.</span>
+                    </div>
+                    <div class="flavor-legend-item">
+                        <span class="flavor-legend-dot" style="background:#c07020;"></span>
+                        <span class="flavor-legend-name">Añejo</span>
+                        <span class="flavor-legend-desc">Výraznější dřevo, sušené ovoce, čokoláda, tabák.</span>
+                    </div>
+                    <div class="flavor-legend-item">
+                        <span class="flavor-legend-dot" style="background:#8a4a10;"></span>
+                        <span class="flavor-legend-name">Extra Añejo</span>
+                        <span class="flavor-legend-desc">Mahagonová komplexita, dlouhý závěr. Srovnatelné s aged whisky.</span>
+                    </div>
+                    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+                        <p style="font-size:.8rem;"><strong style="font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Hodnocené osy</strong><br>Intenzita agáve · Ovocnost · Sladkost · Kořeněnost · Dřevo / dub · Komplexita</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -820,6 +1000,42 @@
                 <p>Přes dvě třetiny veškerého mexického exportu tequily míří do USA.</p>
             </div>
         </div>
+
+        <!-- Issue #5 — Přehled světových destilátů -->
+        <div style="margin-top:4rem;" class="anim">
+            <div class="sh">
+                <span class="label">Globální kontext</span>
+                <h3 style="font-size:clamp(1.3rem,2.5vw,1.8rem);">Tequila mezi světovými destiláty</h3>
+                <div class="divider"></div>
+                <p>Podíl na hodnotě světového trhu lihovin (2024–2025). Baijiu dominuje díky čínské domácí spotřebě.</p>
+            </div>
+            <div class="chart-box anim d1">
+                <div class="chart-title">Světové kategorie destilátů — podíl na trhu (%)</div>
+                <canvas id="spiritsChart" height="280"></canvas>
+            </div>
+            <div class="spirits-insight anim d2">
+                <div class="si-card">
+                    <div class="si-card__lbl">Baijiu — čínský gigant</div>
+                    <div class="si-card__num">37,1 %</div>
+                    <p>Největší kategorie destilátů světa, konzumovaná téměř výhradně na domácím čínském trhu.</p>
+                </div>
+                <div class="si-card">
+                    <div class="si-card__lbl">Tequila — růst CAGR</div>
+                    <div class="si-card__num">+9,1 %</div>
+                    <p>Nejrychleji rostoucí mezinárodní kategorie destilátů s výhledem do roku 2033.</p>
+                </div>
+                <div class="si-card">
+                    <div class="si-card__lbl">Vodka — stagnace</div>
+                    <div class="si-card__num">−1,1 %</div>
+                    <p>Navzdory vedení v objemu vodka stagnuje na vyspělých trzích. Tequila ji v USA objemově předstihuje v prémiové kategorii.</p>
+                </div>
+                <div class="si-card">
+                    <div class="si-card__lbl">Gin &amp; Brandy</div>
+                    <div class="si-card__num">~9–10 %</div>
+                    <p>Gin zaznamenal boom zejména v Evropě, Brandy/Cognac zůstává silný v Asii a luxusním segmentu.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -842,6 +1058,45 @@
                     Je to první mexický krajinný produkt s touto prestižní ochranou.
                 </p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ TOP TEQUILY ══════════════════════════════ -->
+<section class="section section--warm" id="top-tequily">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Doporučené značky</span>
+            <h2>Top tequily světa</h2>
+            <div class="divider"></div>
+            <p>Selekce prémiových a řemeslných výrobců, které reprezentují to nejlepší z mexického destilátorství — od rodinných palíren po kultovní single estate tequily.</p>
+        </div>
+
+        <div class="brand-grid anim d1">
+            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">G4</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🏔️</span><div class="brand-card__name">Fortaleza</div><div class="brand-card__sub">Valle · Tradiční</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌵</span><div class="brand-card__name">Tapatio</div><div class="brand-card__sub">Altos · Rodinná</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌾</span><div class="brand-card__name">Ocho</div><div class="brand-card__sub">Altos · Single Estate</div></div>
+            <div class="brand-card"><span class="brand-card__icon">⭐</span><div class="brand-card__name">Siete Leguas</div><div class="brand-card__sub">Altos · Prémiová</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌄</span><div class="brand-card__name">Cascahuín</div><div class="brand-card__sub">Valle · Řemeslná</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🥃</span><div class="brand-card__name">El Tesoro</div><div class="brand-card__sub">Altos · Tradiční</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🏛️</span><div class="brand-card__name">Herradura</div><div class="brand-card__sub">Valle · Historická</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">Don Fulano</div><div class="brand-card__sub">Valle · Artisan</div></div>
+            <div class="brand-card"><span class="brand-card__icon">✨</span><div class="brand-card__name">Lalo</div><div class="brand-card__sub">Lowlands · BNL Blanco</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌱</span><div class="brand-card__name">Pasote</div><div class="brand-card__sub">Highlands · Craft</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌸</span><div class="brand-card__name">Siempre</div><div class="brand-card__sub">Highlands · Artisan</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🏔️</span><div class="brand-card__name">Montagave</div><div class="brand-card__sub">Altos · Craft</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌵</span><div class="brand-card__name">Cabeza</div><div class="brand-card__sub">Valle · BNL</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🎉</span><div class="brand-card__name">Viva México</div><div class="brand-card__sub">Valle · Artisan</div></div>
+            <div class="brand-card"><span class="brand-card__icon">💎</span><div class="brand-card__name">Clase Azul</div><div class="brand-card__sub">Altos · Ultra Premium</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🗺️</span><div class="brand-card__name">ArteNOM</div><div class="brand-card__sub">Multi Estate · Select</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌿</span><div class="brand-card__name">Tres Generaciones</div><div class="brand-card__sub">Highlands · Heritage</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🥂</span><div class="brand-card__name">Gran Coramino</div><div class="brand-card__sub">Valle · Cristalino</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌹</span><div class="brand-card__name">Komos</div><div class="brand-card__sub">Jalisco · Añejo Rosa</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🔬</span><div class="brand-card__name">Calle 23</div><div class="brand-card__sub">Altos · Craft Blanco</div></div>
+            <div class="brand-card"><span class="brand-card__icon">🌊</span><div class="brand-card__name">T1 Tequila Uno</div><div class="brand-card__sub">Valle · Germán González</div></div>
+            <div class="brand-card"><span class="brand-card__icon">💧</span><div class="brand-card__name">Tears of Llorona</div><div class="brand-card__sub">Extra Añejo · Specialty</div></div>
+            <div class="brand-card"><span class="brand-card__icon">⭐</span><div class="brand-card__name">Cierto</div><div class="brand-card__sub">Highlands · Private Coll.</div></div>
         </div>
     </div>
 </section>
@@ -1019,6 +1274,110 @@ new Chart(document.getElementById('usaChart'), {
                 grid: { color: 'rgba(0,0,0,.05)' },
                 ticks: { font: { size: 11 } },
                 beginAtZero: true,
+            }
+        }
+    }
+});
+
+/* ── Flavor profile radar (Issue #7) ── */
+new Chart(document.getElementById('flavorChart'), {
+    type: 'radar',
+    data: {
+        labels: ['Intenzita agáve', 'Ovocnost', 'Sladkost', 'Kořeněnost', 'Dřevo / dub', 'Komplexita'],
+        datasets: [
+            {
+                label: 'Blanco',
+                data: [9, 7, 4, 7, 1, 5],
+                borderColor: '#4a7c59',
+                backgroundColor: 'rgba(74,124,89,0.1)',
+                pointBackgroundColor: '#4a7c59',
+                borderWidth: 2,
+            },
+            {
+                label: 'Reposado',
+                data: [7, 7, 7, 6, 5, 7],
+                borderColor: '#b8965a',
+                backgroundColor: 'rgba(184,150,90,0.1)',
+                pointBackgroundColor: '#b8965a',
+                borderWidth: 2,
+            },
+            {
+                label: 'Añejo',
+                data: [5, 5, 8, 5, 8, 9],
+                borderColor: '#c07020',
+                backgroundColor: 'rgba(192,112,32,0.1)',
+                pointBackgroundColor: '#c07020',
+                borderWidth: 2,
+            },
+            {
+                label: 'Extra Añejo',
+                data: [3, 3, 8, 4, 10, 10],
+                borderColor: '#8a4a10',
+                backgroundColor: 'rgba(138,74,16,0.08)',
+                pointBackgroundColor: '#8a4a10',
+                borderWidth: 2,
+            },
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            r: {
+                min: 0, max: 10,
+                ticks: { stepSize: 2, font: { size: 10 }, color: '#9a9a9a', backdropColor: 'transparent' },
+                grid: { color: 'rgba(0,0,0,.07)' },
+                angleLines: { color: 'rgba(0,0,0,.07)' },
+                pointLabels: { font: { size: 11 }, color: '#5a5a5a' },
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 14, font: { size: 11 }, usePointStyle: true, pointStyleWidth: 8 }
+            }
+        }
+    }
+});
+
+/* ── Spirits category horizontal bar (Issue #5) ── */
+new Chart(document.getElementById('spiritsChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Baijiu *', 'Whisky', 'Vodka', 'Rum', 'Gin', 'Brandy / Cognac', '🏆 Tequila & Mezcal'],
+        datasets: [{
+            label: 'Podíl na trhu (%)',
+            data: [37.1, 28.6, 22.3, 12.8, 9.7, 9.4, 8.9],
+            backgroundColor: [
+                'rgba(200,180,160,.75)',
+                'rgba(212,184,150,.85)',
+                'rgba(184,200,216,.75)',
+                'rgba(200,160,160,.75)',
+                'rgba(160,200,180,.75)',
+                'rgba(210,190,150,.75)',
+                'rgba(184,150,90,.95)',
+            ],
+            borderColor: ['#c8b8a0','#d4b896','#b8c8d8','#c8a0a0','#a0c8b8','#d2be96','#b8965a'],
+            borderWidth: 1,
+            borderRadius: 6,
+            borderSkipped: false,
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + ' %' } },
+        },
+        scales: {
+            x: {
+                grid: { color: 'rgba(0,0,0,.05)' },
+                ticks: { font: { size: 11 }, callback: v => v + ' %' },
+                max: 42,
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { size: 11 } },
             }
         }
     }
