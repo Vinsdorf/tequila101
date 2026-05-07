@@ -132,8 +132,8 @@
         .hero__deco {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
-            opacity: .18; pointer-events: none;
-            object-fit: cover;
+            opacity: .22; pointer-events: none;
+            object-fit: cover; object-position: center;
         }
         .hero__content { position: relative; z-index: 2; padding-top: 6rem; }
 
@@ -495,102 +495,10 @@
 <section class="hero" id="top">
     <div class="hero__bg"></div>
 
-    <!-- Agave landscape illustration -->
-    <svg class="hero__deco" viewBox="0 0 580 500" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-            <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                <stop offset="0%" stop-color="#f7efe0"/>
-                <stop offset="100%" stop-color="#fdf8f0"/>
-            </linearGradient>
-            <linearGradient id="hGround" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                <stop offset="0%" stop-color="#d4b87a"/>
-                <stop offset="100%" stop-color="#b89858"/>
-            </linearGradient>
-            <linearGradient id="hMtn" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                <stop offset="0%" stop-color="#7aaa78"/>
-                <stop offset="100%" stop-color="#5a8a60"/>
-            </linearGradient>
-        </defs>
-        <!-- Sky -->
-        <rect width="580" height="500" fill="url(#hSky)"/>
-        <!-- Sun halos -->
-        <circle cx="445" cy="118" r="72" fill="rgba(184,150,90,0.07)"/>
-        <circle cx="445" cy="118" r="50" fill="rgba(184,150,90,0.11)"/>
-        <circle cx="445" cy="118" r="30" fill="rgba(184,150,90,0.35)"/>
-        <circle cx="445" cy="118" r="18" fill="#c9a456"/>
-        <!-- Far mountains -->
-        <path d="M0 278 L65 205 L135 248 L205 182 L285 228 L360 172 L438 212 L508 188 L580 222 L580 500 L0 500Z" fill="#d8e8d0" opacity="0.65"/>
-        <!-- Middle hills -->
-        <path d="M0 338 L88 265 L185 308 L295 248 L405 288 L498 262 L580 292 L580 500 L0 500Z" fill="url(#hMtn)"/>
-        <!-- Ground -->
-        <path d="M0 392 Q145 375 292 386 Q438 397 580 378 L580 500 L0 500Z" fill="url(#hGround)"/>
-
-        <!-- Hacienda silhouette -->
-        <g transform="translate(345,318)" opacity="0.45">
-            <rect x="-28" y="-48" width="56" height="48" fill="none" stroke="#8a6a30" stroke-width="1.4"/>
-            <path d="M-33 -48 L0 -69 L33 -48" fill="none" stroke="#8a6a30" stroke-width="1.4" stroke-linejoin="round"/>
-            <rect x="10" y="-84" width="9" height="36" fill="none" stroke="#8a6a30" stroke-width="1.2"/>
-            <path d="M14 -87 C11 -95 17 -103 13 -111" stroke="#cbb898" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.7"/>
-            <rect x="-7" y="-20" width="14" height="20" fill="none" stroke="#8a6a30" stroke-width="1"/>
-            <rect x="-22" y="-39" width="11" height="11" fill="none" stroke="#8a6a30" stroke-width="1"/>
-            <rect x="11"  y="-39" width="11" height="11" fill="none" stroke="#8a6a30" stroke-width="1"/>
-        </g>
-
-        <!-- Agave large left -->
-        <g transform="translate(62,428)">
-            <line x1="0" y1="0" x2="0" y2="-115" stroke="#4a7c59" stroke-width="4" stroke-linecap="round"/>
-            <path d="M0 -22 C-5 -44 -26 -75 -72 -104 C-87 -113 -92 -104 -83 -93 C-65 -74 -36 -57 -5 -40" stroke="#4a7c59" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M0 -22 C5 -44 26 -75 72 -104 C87 -113 92 -104 83 -93 C65 -74 36 -57 5 -40" stroke="#4a7c59" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M0 -44 C-4 -60 -20 -82 -56 -110 C-69 -118 -74 -110 -67 -100 C-52 -84 -27 -68 -4 -52" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -44 C4 -60 20 -82 56 -110 C69 -118 74 -110 67 -100 C52 -84 27 -68 4 -52" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -64 C-3 -76 -13 -92 -36 -110 C-45 -116 -47 -110 -42 -102 C-31 -90 -15 -78 -2 -66" stroke="#5a8c69" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M0 -64 C3 -76 13 -92 36 -110 C45 -116 47 -110 42 -102 C31 -90 15 -78 2 -66" stroke="#5a8c69" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M0 -78 C-2 -88 -9 -97 -22 -106 C-26 -109 -27 -105 -24 -100 C-17 -93 -7 -84 0 -79" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -78 C2 -88 9 -97 22 -106 C26 -109 27 -105 24 -100 C17 -93 7 -84 0 -79" stroke="#b8965a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="0" cy="-117" r="6.5" fill="#4a7c59"/>
-        </g>
-
-        <!-- Agave medium right -->
-        <g transform="translate(496,446)">
-            <line x1="0" y1="0" x2="0" y2="-82" stroke="#4a7c59" stroke-width="3" stroke-linecap="round"/>
-            <path d="M0 -16 C-4 -32 -19 -54 -54 -76 C-65 -82 -68 -75 -62 -67 C-48 -53 -27 -41 -4 -29" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -16 C4 -32 19 -54 54 -76 C65 -82 68 -75 62 -67 C48 -53 27 -41 4 -29" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -33 C-3 -46 -15 -62 -42 -80 C-51 -86 -53 -79 -48 -72 C-36 -59 -19 -49 -2 -39" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M0 -33 C3 -46 15 -62 42 -80 C51 -86 53 -79 48 -72 C36 -59 19 -49 2 -39" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <circle cx="0" cy="-85" r="5" fill="#4a7c59"/>
-        </g>
-
-        <!-- Agave small center -->
-        <g transform="translate(292,458)">
-            <line x1="0" y1="0" x2="0" y2="-58" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M0 -13 C-3 -24 -14 -38 -38 -55 C-46 -60 -48 -54 -43 -47 C-33 -37 -18 -29 -2 -21" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M0 -13 C3 -24 14 -38 38 -55 C46 -60 48 -54 43 -47 C33 -37 18 -29 2 -21" stroke="#4a7c59" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M0 -27 C-2 -36 -10 -44 -28 -54 C-34 -58 -35 -52 -30 -47 C-21 -40 -11 -34 -1 -29" stroke="#5a8c69" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <path d="M0 -27 C2 -36 10 -44 28 -54 C34 -58 35 -52 30 -47 C21 -40 11 -34 1 -29" stroke="#5a8c69" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-            <circle cx="0" cy="-60" r="4" fill="#4a7c59"/>
-        </g>
-
-        <!-- Distant agave silhouettes -->
-        <g opacity="0.35">
-            <g transform="translate(165,378)">
-                <line x1="0" y1="0" x2="0" y2="-34" stroke="#4a7c59" stroke-width="1.5"/>
-                <path d="M0 -8 C-2 -14 -8 -22 -23 -32" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-                <path d="M0 -8 C2 -14 8 -22 23 -32" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-                <circle cx="0" cy="-36" r="2.5" fill="#4a7c59"/>
-            </g>
-            <g transform="translate(385,372)">
-                <line x1="0" y1="0" x2="0" y2="-30" stroke="#4a7c59" stroke-width="1.5"/>
-                <path d="M0 -7 C-2 -12 -7 -18 -19 -27" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-                <path d="M0 -7 C2 -12 7 -18 19 -27" stroke="#4a7c59" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-                <circle cx="0" cy="-32" r="2.2" fill="#4a7c59"/>
-            </g>
-            <g transform="translate(228,382)">
-                <line x1="0" y1="0" x2="0" y2="-26" stroke="#4a7c59" stroke-width="1.2"/>
-                <path d="M0 -6 C-2 -10 -6 -16 -17 -24" stroke="#4a7c59" stroke-width="1" fill="none" stroke-linecap="round"/>
-                <path d="M0 -6 C2 -10 6 -16 17 -24" stroke="#4a7c59" stroke-width="1" fill="none" stroke-linecap="round"/>
-            </g>
-        </g>
-    </svg>
+    <!-- Hero background photo (issue #6) -->
+    <img class="hero__deco"
+         src="https://github.com/user-attachments/assets/fa350c0c-49e8-4210-8b24-f1f0d8abd654"
+         alt="" aria-hidden="true">
 
     <div class="container">
         <div class="hero__content">
