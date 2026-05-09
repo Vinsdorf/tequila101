@@ -195,6 +195,39 @@
             color: var(--dark);
         }
 
+        /* ── bottle layout ── */
+        .bottle-grid { display: grid; grid-template-columns: 300px 1fr; gap: 3.5rem; align-items: start; }
+        @media (max-width: 860px) { .bottle-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        .bottle-photo {
+            background: linear-gradient(160deg, var(--bg-warm), var(--white));
+            border: 2px dashed var(--border); border-radius: 16px;
+            aspect-ratio: 3/5; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: .75rem;
+            cursor: pointer; transition: border-color .2s;
+            position: relative; overflow: hidden;
+        }
+        .bottle-photo:hover { border-color: var(--gold); }
+        .bottle-photo img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
+        .bottle-photo__hint {
+            font-size: .72rem; color: var(--light); letter-spacing: .08em;
+            text-transform: uppercase; text-align: center; padding: 0 1rem;
+        }
+        .bottle-photo__icon { font-size: 2.5rem; opacity: .4; }
+
+        .bottle-desc { font-size: clamp(.93rem,1.4vw,1.05rem); color: var(--mid); line-height: 1.8; max-width: none; }
+        .bottle-desc + .bottle-desc { margin-top: .9rem; }
+
+        .notes-box {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.5rem; margin-top: 1.75rem;
+        }
+        .notes-box__title { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--light); margin-bottom: .75rem; }
+        .score-row { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+        .score-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+        .score-label { font-size: .85rem; font-weight: 500; min-width: 70px; }
+        .score-val { font-size: .85rem; color: var(--light); font-style: italic; }
+
         /* ══════════════════════════════
            DISCLAIMER / FOOTER
         ══════════════════════════════ */
@@ -297,74 +330,41 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════ OCHO ══════════════════════════════ -->
-<section class="section section--warm" id="ocho">
-    <div class="container">
-        <div class="sh anim">
-            <span class="label">Ocho · Single Estate · Altos</span>
-            <h2>Tequila Ocho</h2>
-            <div class="divider"></div>
-            <p>Jedinečný single estate koncept — každý ročník pochází z konkrétního ranče a roku sklizně, podobně jako víno.</p>
-        </div>
-        <div class="two-col">
-            <div class="anim">
-                <span class="badge">NOM 1474 · Carlos Camarena</span>
-                <div style="margin-top:1.25rem;">
-                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1474</span></div>
-                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">La Altena</span></div>
-                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Los Altos, Jalisco</span></div>
-                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado</span></div>
-                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 %</span></div>
-                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 200–1 500 Kč</span></div>
-                </div>
-            </div>
-            <div class="anim d1">
-                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
-                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
-                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
-                </div>
-                <div style="margin-top:1rem;">
-                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- ══════════════════════════════ FORTALEZA ══════════════════════════════ -->
 <section class="section section--white" id="fortaleza">
     <div class="container">
         <div class="sh anim">
-            <span class="label">Fortaleza · Tradiční · Valle</span>
-            <h2>Fortaleza</h2>
+            <span class="label">Lahev č. 1 · Fortaleza · Valle · Blanco</span>
+            <h2>Fortaleza Blanco Still Strength</h2>
             <div class="divider"></div>
-            <p>Čtvrtá generace rodiny Sauza, tahona, otevřená fermentace, měděné pot stilly. Referenční tequila tradičních metod.</p>
+            <p>Standard kvality mezi experty i sběrateli. Tahona, otevřená fermentace, měděné pot stilly — bez kompromisů.</p>
         </div>
-        <div class="two-col">
-            <div class="anim">
-                <span class="badge">NOM 1493 · Guillermo Erickson Sauza</span>
-                <div style="margin-top:1.25rem;">
+        <div class="bottle-grid anim">
+            <div>
+                <div class="bottle-photo">
+                    <span class="bottle-photo__icon">📷</span>
+                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                </div>
+                <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1493</span></div>
                     <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">La Perseverancia</span></div>
-                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila, Jalisco</span></div>
-                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo</span></div>
-                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 % (Still Strength 46 %)</span></div>
-                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 400–1 800 Kč</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco (Plata)</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">~46 % (still strength)</span></div>
+                    <div class="data-row"><span class="data-row__label">Mletí</span><span class="data-row__val">Tahona (kamenný mlýn)</span></div>
+                    <div class="data-row"><span class="data-row__label">Přídavky</span><span class="data-row__val">Žádné (additive-free)</span></div>
                 </div>
             </div>
             <div class="anim d1">
-                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
-                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
-                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
-                </div>
-                <div style="margin-top:1rem;">
-                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                <p class="bottle-desc">Tato tequila je považována za <strong>„standard kvality"</strong> mezi experty i sběrateli. Patří do kategorie Blanco (Plata), což znamená, že po destilaci nezraje v sudech a zachovává si tak krystalicky čistou chuť čerstvého agáve.</p>
+                <p class="bottle-desc">Verze <strong>Still Strength</strong> je unikátní tím, že se neředí vodou na standardních 40 % alkoholu, ale stáčí se v síle, v jaké vyteče z měděného kotle (obvykle 46 %). Díky unikátnímu číslu <strong>NOM 1493</strong> na etiketě může spotřebitel snadno identifikovat, že produkt pochází z konkrétní rodinné palírny, která k drcení agáve stále používá tradiční kamenné kolo (tahona).</p>
+                <p class="bottle-desc">Pro laika je to tequila, která chutná po <strong>zemi, pepři a pečeném agáve</strong>, a díky absenci aditiv nabízí nezkreslený zážitek z mexického dědictví.</p>
+                <div class="notes-box">
+                    <div class="notes-box__title">Naše poznámky po ochutnávce</div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Vůně</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Chuť</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Závěr</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot" style="background:var(--gold);"></span><span class="score-label">Hodnocení</span><span class="score-val">— / 10</span></div>
                 </div>
             </div>
         </div>
@@ -375,33 +375,77 @@
 <section class="section section--warm" id="g4">
     <div class="container">
         <div class="sh anim">
-            <span class="label">G4 · Řemeslná · Valle</span>
-            <h2>G4 Tequila</h2>
+            <span class="label">Lahev č. 2 · G4 · Valle · Blanco High Proof</span>
+            <h2>G4 Blanco 108 Proof</h2>
             <div class="divider"></div>
-            <p>Felipe Camarena a čtvrtá generace rodiny — El Pandillo, vlastní studna s pramenitou vodou, tahona i roller mill.</p>
+            <p>Čtvrtá generace rodiny Camarena — technická dokonalost, dešťová voda, 54 % ABV, nulová aditivita.</p>
         </div>
-        <div class="two-col">
-            <div class="anim">
-                <span class="badge">NOM 1579 · Felipe Camarena</span>
-                <div style="margin-top:1.25rem;">
+        <div class="bottle-grid anim">
+            <div>
+                <div class="bottle-photo">
+                    <span class="bottle-photo__icon">📷</span>
+                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                </div>
+                <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1579</span></div>
                     <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">El Pandillo</span></div>
-                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila, Jalisco</span></div>
-                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo</span></div>
-                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 %</span></div>
-                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 100–1 400 Kč</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Valle de Tequila</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco High Proof</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">54 % (108 Proof)</span></div>
+                    <div class="data-row"><span class="data-row__label">Voda</span><span class="data-row__val">Dešťová voda (vlastní sběr)</span></div>
+                    <div class="data-row"><span class="data-row__label">Přídavky</span><span class="data-row__val">Žádné (additive-free)</span></div>
                 </div>
             </div>
             <div class="anim d1">
-                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
-                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
-                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
+                <p class="bottle-desc">Značka <strong>G4</strong> (čtvrtá generace rodiny Camarena) je synonymem pro technickou dokonalost a inovaci v rámci tradice. Tato varianta je tzv. High Proof tequila s obsahem alkoholu <strong>54 %</strong>, což je těsně pod zákonným limitem 55 %.</p>
+                <p class="bottle-desc">Vyšší procento alkoholu zde slouží jako nosič intenzivních aromat — znalec v ní ucítí <strong>svěžest deště a silnou minerální stopu</strong>, což je dáno využíváním dešťové vody při výrobě. Na etiketě naleznete označení <strong>100% de Agave</strong>, což zaručuje, že veškerý cukr pochází výhradně z modrého agáve bez příměsí levnější třtiny či kukuřice.</p>
+                <p class="bottle-desc">G4 je také lídrem hnutí za transparentnost a striktně odmítá používání glycerinů či aromat (<strong>Additive-Free</strong>), což je zásadní rozdíl oproti levnějším „mixto" verzím, které často způsobují těžkou kocovinu.</p>
+                <div class="notes-box">
+                    <div class="notes-box__title">Naše poznámky po ochutnávce</div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Vůně</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Chuť</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Závěr</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot" style="background:var(--gold);"></span><span class="score-label">Hodnocení</span><span class="score-val">— / 10</span></div>
                 </div>
-                <div style="margin-top:1rem;">
-                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════ OCHO ══════════════════════════════ -->
+<section class="section section--white" id="ocho">
+    <div class="container">
+        <div class="sh anim">
+            <span class="label">Lahev č. 3 · Ocho · Altos · Añejo Single Estate</span>
+            <h2>Tequila Ocho Añejo „Corralillos"</h2>
+            <div class="divider"></div>
+            <p>Single estate jako u vína — agáve z jediného ranče Corralillos, plná trasovatelnost, ročníkový charakter.</p>
+        </div>
+        <div class="bottle-grid anim">
+            <div>
+                <div class="bottle-photo">
+                    <span class="bottle-photo__icon">📷</span>
+                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                </div>
+                <div style="margin-top:1.5rem;">
+                    <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1474 (La Altena)</span></div>
+                    <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">Los Altos, Jalisco</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Añejo (min. 1 rok v dubu)</span></div>
+                    <div class="data-row"><span class="data-row__label">Ranč</span><span class="data-row__val">Corralillos (single estate)</span></div>
+                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">40 %</span></div>
+                    <div class="data-row"><span class="data-row__label">Přístup</span><span class="data-row__val">Ročníkový (jako víno)</span></div>
+                </div>
+            </div>
+            <div class="anim d1">
+                <p class="bottle-desc">Tequila Ocho přistupuje k výrobě <strong>podobně jako vinaři k nejlepším ročníkům vína</strong>. Tato lahev patří do kategorie Añejo, což ze zákona znamená, že zrála v dubových sudech po dobu minimálně jednoho roku, ale méně než tří let.</p>
+                <p class="bottle-desc">Specifikem řady Ocho je koncept <strong>„Single Estate"</strong> — agáve pro tuto šarži pochází z jediného konkrétního pole jménem <strong>Corralillos</strong>. Tato informace o šarži (lote) na etiketě umožňuje plnou trasovatelnost a zaručuje, že každá lahev má svůj unikátní charakter daný půdou a mikroklimatem daného místa.</p>
+                <p class="bottle-desc">Pro běžného konzumenta je to ideální volba, pokud hledá <strong>jemnost sudu</strong> (stopy vanilky a karamelu), ale stále chce cítit autentickou chuť rostliny, která není přebita dřevem.</p>
+                <div class="notes-box">
+                    <div class="notes-box__title">Naše poznámky po ochutnávce</div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Vůně</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Chuť</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Závěr</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot" style="background:var(--gold);"></span><span class="score-label">Hodnocení</span><span class="score-val">— / 10</span></div>
                 </div>
             </div>
         </div>
@@ -409,36 +453,40 @@
 </section>
 
 <!-- ══════════════════════════════ CASCAHUÍN ══════════════════════════════ -->
-<section class="section section--white" id="cascahuin">
+<section class="section section--warm" id="cascahuin">
     <div class="container">
         <div class="sh anim">
-            <span class="label">Cascahuín · Řemeslná · Valle</span>
-            <h2>Cascahuín</h2>
+            <span class="label">Lahev č. 4 · Cascahuín · Valle · Extra Añejo</span>
+            <h2>Cascahuín Extra Añejo</h2>
             <div class="divider"></div>
-            <p>Rodinná palírna z El Arenal v Valle. Additive-free, tradiční výroba s vlastním agávovým polem.</p>
+            <p>Klenot z Valle — nejvyšší stupeň staření, cihlové pece, přirozená sladkost bez doslazování. Luxusní digestiv.</p>
         </div>
-        <div class="two-col">
-            <div class="anim">
-                <span class="badge">NOM 1123 · Rodina Partida</span>
-                <div style="margin-top:1.25rem;">
+        <div class="bottle-grid anim">
+            <div>
+                <div class="bottle-photo">
+                    <span class="bottle-photo__icon">📷</span>
+                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                </div>
+                <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1123</span></div>
-                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">Cascahuín</span></div>
+                    <div class="data-row"><span class="data-row__label">Palírna</span><span class="data-row__val">Cascahuín, El Arenal</span></div>
                     <div class="data-row"><span class="data-row__label">Terroir</span><span class="data-row__val">El Arenal, Valle de Tequila</span></div>
-                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Blanco / Reposado / Añejo / Tahona</span></div>
-                    <div class="data-row"><span class="data-row__label">ABV</span><span class="data-row__val">38–55 % (dle série)</span></div>
-                    <div class="data-row"><span class="data-row__label">Cena (CZ)</span><span class="data-row__val">cca 1 000–1 500 Kč</span></div>
+                    <div class="data-row"><span class="data-row__label">Třída</span><span class="data-row__val">Extra Añejo (min. 3 roky)</span></div>
+                    <div class="data-row"><span class="data-row__label">Sudy</span><span class="data-row__val">Americký dub, max. 600 l</span></div>
+                    <div class="data-row"><span class="data-row__label">Pečení</span><span class="data-row__val">Cihlové hornos (tradiční pece)</span></div>
+                    <div class="data-row"><span class="data-row__label">Přídavky</span><span class="data-row__val">Žádné (additive-free)</span></div>
                 </div>
             </div>
             <div class="anim d1">
-                <div class="hl-box" style="background:var(--bg);border-color:var(--border);">
-                    <strong style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);">Naše poznámky</strong>
-                    <p style="margin-top:.75rem;font-style:italic;color:var(--light);">Bude doplněno po ochutnávce…</p>
-                </div>
-                <div style="margin-top:1rem;">
-                    <div class="data-row"><span class="data-row__label">Vůně</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Chuť</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Závěr</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—</span></div>
-                    <div class="data-row"><span class="data-row__label">Hodnocení</span><span class="data-row__val" style="font-style:italic;color:var(--light);">—/10</span></div>
+                <p class="bottle-desc">Cascahuín je klenotem z oblasti „Valles" (údolí) a jeho Extra Añejo představuje <strong>nejvyšší vrchol staření tequily</strong>. Podle mexických norem musí tato kategorie zrát v sudech o maximálním objemu 600 litrů po dobu minimálně tří let.</p>
+                <p class="bottle-desc">I přes dlouhý kontakt s dřevem si tato tequila díky mistrovství palírníků s číslem <strong>NOM 1123</strong> zachovává svou integritu a nepůsobí jako přeslazený likér. Pro laika jde o <strong>luxusní, komplexní digestiv</strong>, který se pije pomalu z degustační sklenky.</p>
+                <p class="bottle-desc">Na rozdíl od mnoha komerčních rumů, které se po zrání často doslazují, Cascahuín sází na <strong>čistou přírodní sladkost</strong> získanou z pomalého pečení agáve v cihlových pecích, což stvrzuje i oficiální pečeť CRT na každé lahvi.</p>
+                <div class="notes-box">
+                    <div class="notes-box__title">Naše poznámky po ochutnávce</div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Vůně</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Chuť</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot"></span><span class="score-label">Závěr</span><span class="score-val">bude doplněno…</span></div>
+                    <div class="score-row"><span class="score-dot" style="background:var(--gold);"></span><span class="score-label">Hodnocení</span><span class="score-val">— / 10</span></div>
                 </div>
             </div>
         </div>
