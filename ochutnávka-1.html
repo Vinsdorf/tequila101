@@ -200,20 +200,11 @@
         @media (max-width: 860px) { .bottle-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
         .bottle-photo {
-            background: linear-gradient(160deg, var(--bg-warm), var(--white));
-            border: 2px dashed var(--border); border-radius: 16px;
-            aspect-ratio: 3/5; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: .75rem;
-            cursor: pointer; transition: border-color .2s;
-            position: relative; overflow: hidden;
+            border-radius: 16px; aspect-ratio: 3/5;
+            overflow: hidden; position: relative;
+            background: var(--bg-warm);
         }
-        .bottle-photo:hover { border-color: var(--gold); }
-        .bottle-photo img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
-        .bottle-photo__hint {
-            font-size: .72rem; color: var(--light); letter-spacing: .08em;
-            text-transform: uppercase; text-align: center; padding: 0 1rem;
-        }
-        .bottle-photo__icon { font-size: 2.5rem; opacity: .4; }
+        .bottle-photo img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; display: block; }
 
         .bottle-desc { font-size: clamp(.93rem,1.4vw,1.05rem); color: var(--mid); line-height: 1.8; max-width: none; }
         .bottle-desc + .bottle-desc { margin-top: .9rem; }
@@ -342,8 +333,7 @@
         <div class="bottle-grid anim">
             <div>
                 <div class="bottle-photo">
-                    <span class="bottle-photo__icon">📷</span>
-                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                    <img src="foto 1 (1).png" alt="Fortaleza Blanco Still Strength lahev">
                 </div>
                 <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1493</span></div>
@@ -383,8 +373,7 @@
         <div class="bottle-grid anim">
             <div>
                 <div class="bottle-photo">
-                    <span class="bottle-photo__icon">📷</span>
-                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                    <img src="foto 1 (2).png" alt="G4 108 Proof lahev">
                 </div>
                 <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1579</span></div>
@@ -424,8 +413,7 @@
         <div class="bottle-grid anim">
             <div>
                 <div class="bottle-photo">
-                    <span class="bottle-photo__icon">📷</span>
-                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                    <img src="foto 1 (3).png" alt="Ocho Añejo Corralillos lahev">
                 </div>
                 <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1474 (La Altena)</span></div>
@@ -464,8 +452,7 @@
         <div class="bottle-grid anim">
             <div>
                 <div class="bottle-photo">
-                    <span class="bottle-photo__icon">📷</span>
-                    <span class="bottle-photo__hint">Přidej foto lahve</span>
+                    <img src="foto 1 (4).png" alt="Cascahuín Extra Añejo lahev">
                 </div>
                 <div style="margin-top:1.5rem;">
                     <div class="data-row"><span class="data-row__label">NOM</span><span class="data-row__val">1123</span></div>
