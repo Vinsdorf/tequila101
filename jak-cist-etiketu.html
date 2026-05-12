@@ -153,16 +153,89 @@
         .sh { margin-bottom: 3rem; }
         .sh h2 { margin-bottom: .6rem; }
 
-        /* ── etiketa ukázka ── */
-        .label-example { display: grid; grid-template-columns: 260px 1fr; gap: 3.5rem; align-items: start; margin-top: 3rem; }
-        .label-example__img { border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.12); }
-        .label-example__img img { width: 100%; display: block; }
-        .label-example__points { display: flex; flex-direction: column; gap: 1.25rem; }
-        .label-point { display: flex; gap: 1rem; align-items: flex-start; }
-        .label-point__num { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--gold); color: #fff; font-size: .78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: .1rem; }
-        .label-point__text strong { display: block; font-size: .9rem; color: var(--dark); margin-bottom: .2rem; }
-        .label-point__text p { font-size: .85rem; margin: 0; max-width: none; }
-        @media (max-width: 760px) { .label-example { grid-template-columns: 1fr; } .label-example__img { max-width: 240px; } }
+        /* ── etiketa hotspot ── */
+        .label-hotspot-wrap {
+            display: flex; flex-direction: column; align-items: center; margin-top: 3rem; gap: 1rem;
+        }
+        .label-hotspot-wrap > p {
+            font-size: .78rem; color: var(--light); letter-spacing: .06em; text-transform: uppercase;
+            margin: 0;
+        }
+        .hotspot-img-wrap {
+            position: relative; display: inline-block;
+            max-width: 340px; width: 100%;
+        }
+        .hotspot-img-wrap img {
+            width: 100%; display: block;
+            border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.14);
+        }
+        .hs {
+            position: absolute; transform: translate(-50%, -50%);
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--gold); color: #fff;
+            font-size: .72rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 5;
+            box-shadow: 0 2px 10px rgba(0,0,0,.3);
+            transition: transform .2s, background .2s;
+        }
+        .hs::after {
+            content: ''; position: absolute; inset: -5px; border-radius: 50%;
+            border: 2px solid var(--gold); opacity: .6;
+            animation: hspulse 2.2s ease-out infinite;
+        }
+        @keyframes hspulse {
+            0%   { transform: scale(1); opacity: .6; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .hs:hover, .hs.active { transform: translate(-50%,-50%) scale(1.18); background: var(--dark); }
+        .hs:hover::after, .hs.active::after { border-color: var(--dark); animation: none; opacity: 0; }
+
+        .hs__tip {
+            position: absolute; z-index: 20;
+            background: var(--dark); color: #fff;
+            padding: .8rem 1.1rem; border-radius: 10px;
+            width: 210px; font-size: .82rem; line-height: 1.5;
+            pointer-events: none;
+            opacity: 0; transform: scale(.92);
+            transition: opacity .2s, transform .2s;
+            box-shadow: 0 8px 24px rgba(0,0,0,.25);
+        }
+        .hs:hover .hs__tip, .hs.active .hs__tip { opacity: 1; transform: scale(1); }
+        .hs__tip strong { display: block; color: var(--gold); font-size: .85rem; margin-bottom: .35rem; }
+        .hs__tip p { margin: 0; color: rgba(255,255,255,.82); font-size: .8rem; max-width: none; }
+
+        /* tip directions */
+        .hs__tip--bottom { top: calc(100% + 10px); left: 50%; transform: translateX(-50%) scale(.92); }
+        .hs:hover .hs__tip--bottom, .hs.active .hs__tip--bottom { transform: translateX(-50%) scale(1); }
+        .hs__tip--top    { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) scale(.92); }
+        .hs:hover .hs__tip--top, .hs.active .hs__tip--top { transform: translateX(-50%) scale(1); }
+        .hs__tip--left   { right: calc(100% + 10px); top: 50%; transform: translateY(-50%) scale(.92); }
+        .hs:hover .hs__tip--left, .hs.active .hs__tip--left { transform: translateY(-50%) scale(1); }
+        .hs__tip--right  { left: calc(100% + 10px); top: 50%; transform: translateY(-50%) scale(.92); }
+        .hs:hover .hs__tip--right, .hs.active .hs__tip--right { transform: translateY(-50%) scale(1); }
+
+        /* tip arrow */
+        .hs__tip::before {
+            content: ''; position: absolute; border: 6px solid transparent;
+        }
+        .hs__tip--bottom::before { bottom: 100%; left: 50%; transform: translateX(-50%); border-bottom-color: var(--dark); }
+        .hs__tip--top::before    { top: 100%; left: 50%; transform: translateX(-50%); border-top-color: var(--dark); }
+        .hs__tip--left::before   { left: 100%; top: 50%; transform: translateY(-50%); border-left-color: var(--dark); }
+        .hs__tip--right::before  { right: 100%; top: 50%; transform: translateY(-50%); border-right-color: var(--dark); }
+
+        @media (max-width: 600px) {
+            .hs__tip { width: 170px; font-size: .76rem; }
+            .hs__tip--left, .hs__tip--right {
+                top: auto; bottom: calc(100% + 10px);
+                left: 50%; right: auto;
+                transform: translateX(-50%) scale(.92);
+            }
+            .hs:hover .hs__tip--left, .hs.active .hs__tip--left,
+            .hs:hover .hs__tip--right, .hs.active .hs__tip--right {
+                transform: translateX(-50%) scale(1);
+            }
+        }
 
         /* ── two-col ── */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
@@ -314,56 +387,62 @@
                 </div>
             </div>
         </div>
-        <div class="label-example anim d2">
-            <div class="label-example__img">
-                <img src="etiketa-cascahuin.png" alt="Etiketa Cascahuín Tahona Blanco — živý příklad">
-            </div>
-            <div class="label-example__points">
-                <div class="sh" style="margin-bottom:1rem;">
-                    <span class="label">Živý příklad</span>
-                    <h3>Cascahuín Tahona Blanco</h3>
-                    <div class="divider"></div>
-                </div>
-                <div class="label-point">
-                    <div class="label-point__num">1</div>
-                    <div class="label-point__text">
+        <div class="label-hotspot-wrap anim d2">
+            <p>Najeď myší na číslo pro popis</p>
+            <div class="hotspot-img-wrap">
+                <img src="etiketa-cascahuin.png" alt="Etiketa Cascahuín Tahona Blanco">
+
+                <!-- 1 · 100% de Agave — horní diagonální banner -->
+                <div class="hs" style="top:17%;left:52%;">
+                    1
+                    <div class="hs__tip hs__tip--bottom">
                         <strong>100% de Agave</strong>
                         <p>Garantuje, že destilát pochází výhradně z modré agáve Weber bez přídavku jiných cukrů.</p>
                     </div>
                 </div>
-                <div class="label-point">
-                    <div class="label-point__num">2</div>
-                    <div class="label-point__text">
+
+                <!-- 2 · Tahona — pravý střed -->
+                <div class="hs" style="top:49%;left:76%;">
+                    2
+                    <div class="hs__tip hs__tip--left">
                         <strong>Tahona</strong>
-                        <p>Označení výrobní metody — agáve se drtí kamenným kolem taženým mezkem nebo koněm. Tradiční, pomalý způsob.</p>
+                        <p>Výrobní metoda — agáve se drtí dvětunovým kamenným kolem. Tradiční, pomalý způsob bez moderních difuzérů.</p>
                     </div>
                 </div>
-                <div class="label-point">
-                    <div class="label-point__num">3</div>
-                    <div class="label-point__text">
+
+                <!-- 3 · Blanco — velký nápis dolní třetina -->
+                <div class="hs" style="top:74%;left:50%;">
+                    3
+                    <div class="hs__tip hs__tip--left">
                         <strong>Blanco</strong>
-                        <p>Klasifikace stáří — tequila nebyla zrálá v sudu, nebo maximálně 60 dnů. Nejčistší výraz agáve a terroir.</p>
+                        <p>Klasifikace stáří — maximálně 60 dní v sudu. Nejčistší výraz agáve a terroir bez vlivu dřeva.</p>
                     </div>
                 </div>
-                <div class="label-point">
-                    <div class="label-point__num">4</div>
-                    <div class="label-point__text">
+
+                <!-- 4 · NOM + D.O.P. — levý dolní roh -->
+                <div class="hs" style="top:80%;left:17%;">
+                    4
+                    <div class="hs__tip hs__tip--right">
                         <strong>NOM 1123 · D.O.P.</strong>
-                        <p>NOM identifikuje palírnu (Cascahuín, El Arenal). D.O.P. = Denominación de Origen Protegida — certifikace původu.</p>
+                        <p>NOM identifikuje palírnu Cascahuín v El Arenal. D.O.P. = Denominación de Origen Protegida.</p>
                     </div>
                 </div>
-                <div class="label-point">
-                    <div class="label-point__num">5</div>
-                    <div class="label-point__text">
+
+                <!-- 5 · 42% Alc. Vol. — levý spodek -->
+                <div class="hs" style="top:89%;left:22%;">
+                    5
+                    <div class="hs__tip hs__tip--top">
                         <strong>42% Alc. Vol. · 750 ml</strong>
-                        <p>Obsah alkoholu a objem — povinné údaje dle NOM-006. Tequila musí být 35–55 % Alc. Vol.</p>
+                        <p>Povinné údaje dle NOM-006. Tequila musí být v rozmezí 35–55 % Alc. Vol.</p>
                     </div>
                 </div>
-                <div class="label-point">
-                    <div class="label-point__num">6</div>
-                    <div class="label-point__text">
+
+                <!-- 6 · Hecho en México — úplný spodek -->
+                <div class="hs" style="top:95%;left:55%;">
+                    6
+                    <div class="hs__tip hs__tip--top">
                         <strong>Hecho en México</strong>
-                        <p>Povinný nápis na každé lahvi tequily — tequila může být legálně lahvována a prodávána pouze z Mexika.</p>
+                        <p>Povinný nápis — tequila smí být legálně lahvována a prodávána pouze z Mexika.</p>
                     </div>
                 </div>
             </div>
@@ -593,6 +672,19 @@ document.querySelectorAll('.anim').forEach(el => {
     } else {
         revealObs.observe(el);
     }
+});
+
+// Hotspot tap support for touch devices
+document.querySelectorAll('.hs').forEach(hs => {
+    hs.addEventListener('click', e => {
+        e.stopPropagation();
+        const isActive = hs.classList.contains('active');
+        document.querySelectorAll('.hs').forEach(h => h.classList.remove('active'));
+        if (!isActive) hs.classList.add('active');
+    });
+});
+document.addEventListener('click', () => {
+    document.querySelectorAll('.hs').forEach(h => h.classList.remove('active'));
 });
 </script>
 </body>
