@@ -153,6 +153,17 @@
         .sh { margin-bottom: 3rem; }
         .sh h2 { margin-bottom: .6rem; }
 
+        /* ── etiketa ukázka ── */
+        .label-example { display: grid; grid-template-columns: 260px 1fr; gap: 3.5rem; align-items: start; margin-top: 3rem; }
+        .label-example__img { border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+        .label-example__img img { width: 100%; display: block; }
+        .label-example__points { display: flex; flex-direction: column; gap: 1.25rem; }
+        .label-point { display: flex; gap: 1rem; align-items: flex-start; }
+        .label-point__num { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--gold); color: #fff; font-size: .78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: .1rem; }
+        .label-point__text strong { display: block; font-size: .9rem; color: var(--dark); margin-bottom: .2rem; }
+        .label-point__text p { font-size: .85rem; margin: 0; max-width: none; }
+        @media (max-width: 760px) { .label-example { grid-template-columns: 1fr; } .label-example__img { max-width: 240px; } }
+
         /* ── two-col ── */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
         @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 2.5rem; } }
@@ -300,6 +311,60 @@
                         informace — od klasifikace a složení přes NOM kód palírny až po povinný nápis „Hecho en México".
                         Etiketa není jen marketingový nástroj — je to právní dokument o původu a výrobě nápoje.
                     </p>
+                </div>
+            </div>
+        </div>
+        <div class="label-example anim d2">
+            <div class="label-example__img">
+                <img src="etiketa-cascahuin.png" alt="Etiketa Cascahuín Tahona Blanco — živý příklad">
+            </div>
+            <div class="label-example__points">
+                <div class="sh" style="margin-bottom:1rem;">
+                    <span class="label">Živý příklad</span>
+                    <h3>Cascahuín Tahona Blanco</h3>
+                    <div class="divider"></div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">1</div>
+                    <div class="label-point__text">
+                        <strong>100% de Agave</strong>
+                        <p>Garantuje, že destilát pochází výhradně z modré agáve Weber bez přídavku jiných cukrů.</p>
+                    </div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">2</div>
+                    <div class="label-point__text">
+                        <strong>Tahona</strong>
+                        <p>Označení výrobní metody — agáve se drtí kamenným kolem taženým mezkem nebo koněm. Tradiční, pomalý způsob.</p>
+                    </div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">3</div>
+                    <div class="label-point__text">
+                        <strong>Blanco</strong>
+                        <p>Klasifikace stáří — tequila nebyla zrálá v sudu, nebo maximálně 60 dnů. Nejčistší výraz agáve a terroir.</p>
+                    </div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">4</div>
+                    <div class="label-point__text">
+                        <strong>NOM 1123 · D.O.P.</strong>
+                        <p>NOM identifikuje palírnu (Cascahuín, El Arenal). D.O.P. = Denominación de Origen Protegida — certifikace původu.</p>
+                    </div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">5</div>
+                    <div class="label-point__text">
+                        <strong>42% Alc. Vol. · 750 ml</strong>
+                        <p>Obsah alkoholu a objem — povinné údaje dle NOM-006. Tequila musí být 35–55 % Alc. Vol.</p>
+                    </div>
+                </div>
+                <div class="label-point">
+                    <div class="label-point__num">6</div>
+                    <div class="label-point__text">
+                        <strong>Hecho en México</strong>
+                        <p>Povinný nápis na každé lahvi tequily — tequila může být legálně lahvována a prodávána pouze z Mexika.</p>
+                    </div>
                 </div>
             </div>
         </div>
