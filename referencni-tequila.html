@@ -149,6 +149,10 @@
 
         .hero__sub { font-size: clamp(1rem, 2vw, 1.15rem); max-width: 52ch; margin-bottom: 3rem; }
 
+        /* ── collection intro photo ── */
+        .collection-intro { width: 100%; overflow: hidden; max-height: 520px; }
+        .collection-intro img { width: 100%; display: block; object-fit: cover; object-position: center 30%; max-height: 520px; }
+
         /* ── section header ── */
         .sh { margin-bottom: 3rem; }
         .sh h2 { margin-bottom: .6rem; }
@@ -277,32 +281,38 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════ SEKCE 1 — O ZNAČCE ══════════════════════════════ -->
+<!-- ══════════════════════════════ KOLEKCE — INTRO FOTO ══════════════════════════════ -->
+<div class="collection-intro anim">
+    <img src="fortaleza_collection.png" alt="Fortaleza tequila — kolekce lahví">
+</div>
+
+
+<!-- ══════════════════════════════ SEKCE 2 — PŘÍBĚH & ZNAČKA ══════════════════════════════ -->
 <section class="section section--white" id="o-znacce">
     <div class="container">
         <div class="sh anim">
-            <span class="label">Rodinná palírna z Valle</span>
-            <h2>Fortaleza — Los Abuelos</h2>
+            <span class="label">Historie rodiny Sauza</span>
+            <h2>Zmrtvýchvstání dynastie</h2>
             <div class="divider"></div>
         </div>
         <div class="two-col">
             <div class="anim">
                 <p>
-                    Fortaleza je tequila čtvrté generace rodiny Sauza — jedné z nejslavnějších jmen v historii mexického destilátorství.
-                    Guillermo Erickson Sauza, pravnuk legendárního Cenobio Sauzy, se rozhodl opustit průmyslové metody
-                    a vrátit se ke způsobu výroby svých pradědů.
+                    Historie Fortalezy je úzce spjata s rodinou Sauza, jedním z „velkých tří" zakladatelských rodů tequily.
+                    V roce 1976 rodina prodala slavnou značku Sauza nadnárodnímu koncernu — stará rodinná palírna
+                    La Fortaleza ale zůstala. Stála zavřená a chátrala celých <strong>34 let</strong>.
                 </p>
                 <p style="margin-top:1rem;">
-                    Palírna La Perseverancia se nachází přímo ve městě Tequila v Jalisco, v historickém centru původní tequilové kultury.
-                    Na rozdíl od velkovýrobců Fortaleza používá tradiční <strong>tahonu</strong> — těžký kamenný mlýn tažený koněm —
-                    k mletí upečených piñas. Fermentace probíhá v otevřených dřevěných tancích za přítomnosti vzduchu,
-                    destilace pak v malých měděných alambikách s omezenou kapacitou.
+                    V roce 1999 se <strong>Guillermo Erickson Sauza</strong>, pátá generace rodiny, rozhodl palírnu
+                    obnovit — přesně tak, jak ji provozoval jeho prapradědeček před 150 lety. První lahev Fortaleza
+                    (v Mexiku jako <em>Los Abuelos</em>) vyšla v roce 2005 a změnila pravidla prémiových destilátů.
                 </p>
                 <p style="margin-top:1rem;">
-                    Výsledkem je tequila s výjimečnou autenticitou — surová síla agáve kombinovaná s komplexními minerálními
-                    a ovocnými tóny typickými pro Valle de Tequila. Každá šarže je limitovaná a osobně dohlížená výrobcem.
+                    Palírna La Perseverancia se nachází přímo ve městě Tequila v Jalisco. Fortaleza používá tradiční
+                    <strong>tahonu</strong>, fermentaci v otevřených dřevěných tancích a destilaci v malých měděných
+                    alambikách s omezenou kapacitou.
                 </p>
-                <div class="hl-box anim d1">
+                <div class="hl-box anim d1" style="margin-top:1.5rem;">
                     <p>
                         <strong>„Chceme dělat tequilu tak, jak ji dělali naši pradědové."</strong><br>
                         — Guillermo Erickson Sauza, zakladatel Fortaleza (2005)
@@ -319,6 +329,10 @@
                     <div class="data-row"><span class="data-row__label">Destilace</span><span class="data-row__val">Měděné pot stilly</span></div>
                     <div class="data-row"><span class="data-row__label">Mletí</span><span class="data-row__val">Tahona (kamenný mlýn) + roller mill</span></div>
                     <div class="data-row"><span class="data-row__label">Zakladatel</span><span class="data-row__val">Guillermo Erickson Sauza (2005)</span></div>
+                </div>
+                <div class="hl-box" style="margin-top:1.5rem;">
+                    <p><strong>Los Abuelos = „Prarodiče"</strong><br>
+                    V Mexiku se Fortaleza prodává pod tímto názvem — hold předkům, kteří tradici položili.</p>
                 </div>
             </div>
         </div>
@@ -417,62 +431,7 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════ SEKCE 5 — KOLEKCE FOTO ══════════════════════════════ -->
-<section class="section section--white" id="kolekce">
-    <div class="container">
-        <div class="sh anim">
-            <span class="label">Produktová kolekce</span>
-            <h2>Fortaleza — celá řada</h2>
-            <div class="divider"></div>
-        </div>
-        <div class="anim d1" style="text-align:center;">
-            <img src="fortaleza_collection.png" alt="Fortaleza tequila kolekce lahví"
-                 style="max-width:100%; width:720px; border-radius:16px; box-shadow:0 12px 40px rgba(0,0,0,.10);">
-        </div>
-    </div>
-</section>
 
-<!-- ══════════════════════════════ SEKCE 6 — PŘÍBĚH ══════════════════════════════ -->
-<section class="section section--warm" id="pribeh">
-    <div class="container">
-        <div class="sh anim">
-            <span class="label">Historie rodiny Sauza</span>
-            <h2>Zmrtvýchvstání dynastie</h2>
-            <div class="divider"></div>
-        </div>
-        <div class="two-col">
-            <div class="anim">
-                <p>
-                    Historie Fortalezy je úzce spjata s rodinou Sauza, jedním z „velkých tří" zakladatelských rodů tequily.
-                    V roce 1976 však rodina svou slavnou značku (Sauza) prodala nadnárodnímu koncernu. Součástí prodeje
-                    ale nebyla stará rodinná palírna La Fortaleza, která stála na kopci nad městem Tequila.
-                    Ta zůstala uzavřená a chátrala celých 34 let.
-                </p>
-                <p style="margin-top:1rem;">
-                    V roce 1999 se <strong>Guillermo Erickson Sauza</strong>, pátá generace rodiny, rozhodl palírnu obnovit.
-                    Nechtěl ale konkurovat moderním gigantům. Jeho cílem bylo vyrábět tequilu přesně tak, jak ji dělal
-                    jeho prapradědeček před 150 lety.
-                </p>
-                <p style="margin-top:1rem;">
-                    První lahev pod názvem Fortaleza (v Mexiku známá jako <em>Los Abuelos</em>) byla uvedena na trh
-                    v roce 2005 a okamžitě změnila pravidla hry pro prémiové destiláty.
-                </p>
-            </div>
-            <div class="anim d1">
-                <div class="hl-box">
-                    <p><strong>34 let mlčení</strong><br>
-                    Palírna stála opuštěná od prodeje značky Sauza v roce 1976 až do Guillermovy obnovy v roce 1999.
-                    Stroje zůstaly na místě — čekaly na svého dědice.</p>
-                </div>
-                <div class="hl-box" style="margin-top:1.25rem;">
-                    <p><strong>Los Abuelos = „Prarodiče"</strong><br>
-                    V Mexiku se Fortaleza prodává pod názvem Los Abuelos — hold předkům, kteří tuto tradici před
-                    150 lety položili.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- ══════════════════════════════ SEKCE 7 — VÝROBNÍ PROCES ══════════════════════════════ -->
 <section class="section section--white" id="vyrobni-proces">
