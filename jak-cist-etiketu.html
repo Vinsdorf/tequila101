@@ -102,6 +102,15 @@
         }
         .nav__links a:hover, .nav__links a.active { color: var(--dark); }
 
+        .nav__links a.nav__link--page {
+            color: var(--gold); border: 1.5px solid var(--gold);
+            border-radius: 100px; padding: .3rem .75rem;
+            transition: background .2s, color .2s;
+        }
+        .nav__links a.nav__link--page:hover {
+            background: var(--gold); color: #fff;
+        }
+
         .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
         .nav__burger span { display: block; width: 22px; height: 2px; background: var(--dark); transition: .3s; }
 
@@ -245,10 +254,10 @@
                 <li><a href="index.html#terroir">Terroir</a></li>
                 <li><a href="index.html#vyroba">Výroba</a></li>
                 <li><a href="index.html#top-tequily">Top Tequily</a></li>
-                <li><a href="svetova-cisla.html">Světová čísla</a></li>
-                <li><a href="referencni-tequila.html">Referenční tequila</a></li>
-                <li><a href="jak-cist-etiketu.html" class="active">Jak číst etiketu</a></li>
-                <li><a href="ochutnávka-1.html">Naše ochutnávka #1</a></li>
+                <li><a href="svetova-cisla.html" class="nav__link--page">Světová čísla</a></li>
+                <li><a href="referencni-tequila.html" class="nav__link--page">Referenční tequila</a></li>
+                <li><a href="jak-cist-etiketu.html" class="nav__link--page active">Jak číst etiketu</a></li>
+                <li><a href="ochutnávka-1.html" class="nav__link--page">Naše ochutnávka #1</a></li>
             </ul>
             <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
                 <span></span><span></span><span></span>
