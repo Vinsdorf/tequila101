@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Foto — příběh tequily v obrazech. Od agávových polí Jaliska přes tradiční výrobu až po hotovou lahev.">
+    <title>Foto — Tequila 101</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:         #fafaf6;
+            --bg-warm:    #f5f1e8;
+            --white:      #ffffff;
+            --green:      #4a7c59;
+            --green-lt:   #e8f0ea;
+            --gold:       #b8965a;
+            --gold-lt:    #f5ede0;
+            --dark:       #1c1c1c;
+            --mid:        #5a5a5a;
+            --light:      #9a9a9a;
+            --border:     #e8e4dc;
+            --ff-serif:   'Playfair Display', Georgia, serif;
+            --ff-sans:    'Inter', system-ui, sans-serif;
+            --max-w:      1100px;
+            --pad-x:      clamp(1.5rem, 5vw, 3rem);
+            --section-py: clamp(4rem, 8vw, 8rem);
+            --ease:       cubic-bezier(.25,.46,.45,.94);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--ff-sans);
+            background: #111;
+            color: #f0ece4;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--ff-serif); line-height: 1.25; }
+        h1 { font-size: clamp(2.6rem, 6vw, 5rem); }
+        h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+        a  { color: var(--gold); text-decoration: none; }
+
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
+
+        /* ── Scroll animations ── */
+        .anim {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity .8s var(--ease), transform .8s var(--ease);
+        }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: .1s; }
+        .d2 { transition-delay: .2s; }
+        .d3 { transition-delay: .3s; }
+
+        /* ══════════════════════════════
+           NAV
+        ══════════════════════════════ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.2rem 0;
+            transition: background .3s var(--ease), box-shadow .3s var(--ease), padding .3s var(--ease);
+        }
+        .nav.scrolled {
+            background: rgba(17,17,17,.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(255,255,255,.08);
+            padding: .75rem 0;
+        }
+        .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav__logo { font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 700; color: #f0ece4; }
+        .nav__logo span { color: var(--gold); }
+
+        .nav__links { display: flex; gap: 2rem; list-style: none; }
+        .nav__links a {
+            font-size: .83rem; font-weight: 500; color: rgba(240,236,228,.6); letter-spacing: .02em;
+            transition: color .2s;
+        }
+        .nav__links a:hover, .nav__links a.active { color: #f0ece4; }
+
+        .nav__links a.nav__link--page {
+            color: var(--gold); border: 1.5px solid var(--gold);
+            border-radius: 100px; padding: .3rem .75rem;
+            transition: background .2s, color .2s;
+        }
+        .nav__links a.nav__link--page:hover {
+            background: var(--gold); color: #fff;
+        }
+        .nav__links a.nav__link--page.active {
+            background: var(--gold); color: #fff;
+        }
+
+        .nav__burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav__burger span { display: block; width: 22px; height: 2px; background: #f0ece4; transition: .3s; }
+
+        @media (max-width: 780px) {
+            .nav__links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: #111; flex-direction: column; padding: 1rem var(--pad-x);
+                border-top: 1px solid rgba(255,255,255,.1); box-shadow: 0 8px 24px rgba(0,0,0,.4);
+            }
+            .nav__links.open { display: flex; }
+            .nav__burger { display: flex; }
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        .foto-hero {
+            min-height: 100svh;
+            display: flex; align-items: flex-end;
+            position: relative; overflow: hidden;
+        }
+        .foto-hero__bg {
+            position: absolute; inset: 0;
+            background-image: url('https://images.unsplash.com/photo-b1KOrva8Afs?w=1600&q=90&fit=crop');
+            background-size: cover; background-position: center 40%;
+        }
+        .foto-hero__overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.1) 100%);
+        }
+        .foto-hero__content {
+            position: relative; z-index: 2;
+            padding: 5rem var(--pad-x) 6rem;
+            max-width: var(--max-w); margin: 0 auto; width: 100%;
+        }
+        .foto-hero__eyebrow {
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+        }
+        .foto-hero__eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+        .foto-hero__eyebrow-text {
+            font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
+        }
+        .foto-hero__title { color: #fff; margin-bottom: 1rem; }
+        .foto-hero__title em { color: var(--gold); font-style: italic; }
+        .foto-hero__sub {
+            font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255,255,255,.75);
+            max-width: 52ch; font-weight: 300;
+        }
+
+        /* ══════════════════════════════
+           PHOTO CHAPTERS
+        ══════════════════════════════ */
+
+        /* Chapter intro label */
+        .chapter-label {
+            display: inline-flex; align-items: center; gap: .75rem;
+            font-size: .7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 1rem;
+        }
+        .chapter-label::before {
+            content: '';
+            display: inline-block; width: 28px; height: 1px; background: var(--gold);
+        }
+
+        /* Full-bleed photo block */
+        .photo-full {
+            width: 100%; position: relative; overflow: hidden;
+        }
+        .photo-full img {
+            width: 100%; height: clamp(400px, 60vw, 720px);
+            object-fit: cover; object-position: center;
+            display: block;
+            transition: transform 8s ease;
+        }
+        .photo-full:hover img { transform: scale(1.03); }
+
+        /* Photo with text side-by-side */
+        .photo-section {
+            padding: clamp(4rem, 7vw, 7rem) var(--pad-x);
+            max-width: 1400px; margin: 0 auto;
+        }
+        .photo-section--split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 4vw, 5rem);
+            align-items: center;
+        }
+        .photo-section--split.reverse { direction: rtl; }
+        .photo-section--split.reverse > * { direction: ltr; }
+        @media (max-width: 760px) {
+            .photo-section--split { grid-template-columns: 1fr; }
+            .photo-section--split.reverse { direction: ltr; }
+        }
+
+        .photo-frame {
+            position: relative; overflow: hidden; border-radius: 4px;
+        }
+        .photo-frame img {
+            width: 100%; height: clamp(320px, 45vw, 580px);
+            object-fit: cover; display: block;
+            transition: transform 8s ease;
+        }
+        .photo-frame:hover img { transform: scale(1.04); }
+
+        .photo-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 100%);
+            font-size: .72rem; color: rgba(255,255,255,.65); letter-spacing: .05em;
+        }
+
+        .text-block h3 {
+            font-size: clamp(1.5rem, 3vw, 2.1rem); color: #f0ece4;
+            margin-bottom: .75rem;
+        }
+        .text-block .chapter-num {
+            font-size: clamp(3.5rem, 8vw, 6rem); font-family: var(--ff-serif);
+            font-weight: 700; color: rgba(184,150,90,.12);
+            line-height: 1; margin-bottom: .5rem;
+            display: block;
+        }
+        .text-block p {
+            color: rgba(240,236,228,.6); font-size: clamp(.9rem, 1.5vw, 1rem);
+            max-width: 44ch; line-height: 1.8;
+        }
+        .text-block .divider {
+            width: 2.5rem; height: 2px; background: var(--gold); margin: 1.25rem 0;
+        }
+
+        /* Three-up grid */
+        .photo-trio {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem;
+        }
+        @media (max-width: 640px) { .photo-trio { grid-template-columns: 1fr; } }
+        .photo-trio img {
+            width: 100%; height: clamp(220px, 30vw, 380px);
+            object-fit: cover; display: block;
+            transition: transform 8s ease;
+        }
+        .photo-trio > div { overflow: hidden; position: relative; }
+        .photo-trio > div:hover img { transform: scale(1.04); }
+
+        /* Pull quote */
+        .pull-quote {
+            text-align: center; padding: clamp(4rem, 7vw, 7rem) var(--pad-x);
+            max-width: 800px; margin: 0 auto;
+        }
+        .pull-quote blockquote {
+            font-family: var(--ff-serif); font-style: italic;
+            font-size: clamp(1.3rem, 2.5vw, 1.9rem); color: var(--gold);
+            line-height: 1.5;
+        }
+        .pull-quote cite {
+            display: block; margin-top: 1.25rem;
+            font-size: .78rem; font-weight: 500; letter-spacing: .15em;
+            text-transform: uppercase; color: rgba(240,236,228,.4);
+        }
+
+        /* Separator */
+        .sep {
+            width: 1px; height: 80px; background: rgba(184,150,90,.3);
+            margin: 0 auto;
+        }
+
+        /* Dark section */
+        .section-dark { background: #111; }
+        .section-mid  { background: #1a1814; }
+
+        /* Credits */
+        .credits {
+            padding: 3rem var(--pad-x) 2rem;
+            text-align: center;
+            font-size: .72rem; color: rgba(240,236,228,.25);
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+        .credits a { color: rgba(184,150,90,.5); }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        footer {
+            background: #0d0d0b; color: rgba(240,236,228,.45);
+            text-align: center; padding: 3rem var(--pad-x);
+        }
+        .footer-logo { font-family: var(--ff-serif); font-size: 1.2rem; color: #f0ece4; display: block; margin-bottom: .5rem; }
+        .footer-logo span { color: var(--gold); }
+        footer p { font-size: .8rem; margin-top: .3rem; }
+        footer p + p { margin-top: 1.5rem; font-size: .72rem; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="container">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">Tequila <span>101</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html#uvod">Úvod</a></li>
+                <li><a href="index.html#historie">Historie</a></li>
+                <li><a href="index.html#rodina">Destiláty</a></li>
+                <li><a href="index.html#terroir">Terroir</a></li>
+                <li><a href="index.html#vyroba">Výroba</a></li>
+                <li><a href="index.html#top-tequily">Top Tequily</a></li>
+                <li><a href="svetova-cisla.html" class="nav__link--page">Světová čísla</a></li>
+                <li><a href="referencni-tequila.html" class="nav__link--page">Referenční tequila</a></li>
+                <li><a href="jak-cist-etiketu.html" class="nav__link--page">Jak číst etiketu</a></li>
+                <li><a href="ochutnávka-1.html" class="nav__link--page">Naše ochutnávka #1</a></li>
+                <li><a href="foto.html" class="nav__link--page active">Foto</a></li>
+            </ul>
+            <div class="nav__burger" id="burger" aria-label="Menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="foto-hero">
+    <div class="foto-hero__bg"></div>
+    <div class="foto-hero__overlay"></div>
+    <div class="foto-hero__content anim visible">
+        <div class="foto-hero__eyebrow">
+            <div class="foto-hero__eyebrow-line"></div>
+            <span class="foto-hero__eyebrow-text">Tequila 101 — Foto</span>
+        </div>
+        <h1 class="foto-hero__title">Od agáve<br>k <em>lahvi</em></h1>
+        <p class="foto-hero__sub">Vizuální příběh tequily — od divoké krajiny Jaliska přes ruce jimadorů až po zlatavý destilát.</p>
+    </div>
+</section>
+
+<!-- ══════════════════════════════
+     KAPITOLA 1 — KRAJINA
+══════════════════════════════ -->
+<section class="section-dark">
+    <div class="photo-section photo-section--split anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-aWzxwrLql_I?w=1200&q=90&fit=crop"
+                alt="Pole modré agáve — Jalisco, Mexiko"
+                loading="lazy">
+            <div class="photo-caption">Jalisco, Mexiko — srdce tequilového světa</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">01</span>
+            <div class="chapter-label">Krajina</div>
+            <h3>Modrá agáve<br>v srdci Jaliska</h3>
+            <div class="divider"></div>
+            <p>Agave tequilana Weber azul roste v horkém slunci středozápadního Mexika. Každá rostlina potřebuje 7–12 let, než dozraje — a teprve tehdy je připravena stát se tequilou. Červená sopečná půda a suchý horský vzduch dávají každé piñe její charakter.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Full-bleed divider photo -->
+<div class="photo-full anim">
+    <img
+        src="https://images.unsplash.com/photo-HroSMavJhlo?w=1600&q=90&fit=crop&crop=center"
+        alt="Agávová pole v horách Jaliska"
+        loading="lazy">
+</div>
+
+<!-- ══════════════════════════════
+     KAPITOLA 2 — JIMADOR
+══════════════════════════════ -->
+<section class="section-mid">
+    <div class="photo-section photo-section--split reverse anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-6sfA_csIgUU?w=1200&q=90&fit=crop"
+                alt="Jimador — sklizeň agáve v Jalisku"
+                loading="lazy">
+            <div class="photo-caption">Jimador při práci — umění předávané z generace na generaci</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">02</span>
+            <div class="chapter-label">Sklizeň</div>
+            <h3>Jimador —<br>mistr piňy</h3>
+            <div class="divider"></div>
+            <p>Jimador je zkušený zemědělec, který pomocí nástroje zvaného <em>coa de jima</em> odstraňuje tuhé listy agáve. Zůstane jen <em>piña</em> — tuhé srdce plné cukrů. Jedna piña váží od 30 do 90 kilogramů. Dobrý jimador denně sklidí desítky.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════
+     KAPITOLA 3 — PIÑAS
+══════════════════════════════ -->
+<section class="section-dark">
+    <div class="photo-section photo-section--split anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-dkcopnqR64Y?w=1200&q=90&fit=crop"
+                alt="Piñas — srdce agáve připravená ke zpracování"
+                loading="lazy">
+            <div class="photo-caption">Čerstvě sklizené piñas čekající na horno</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">03</span>
+            <div class="chapter-label">Piñas</div>
+            <h3>Srdce<br>agáve</h3>
+            <div class="divider"></div>
+            <p>Po sklizni se piñas rozdělí na menší kusy a vloží do horního — tradičně do kamenné nebo zděné pece. Pomalé vaření po dobu 36–72 hodin přemění škrobnaté inuliny na fermentovatelné cukry a rozvine charakteristické chutě: sladkost, zemitost, jemné kouřové tóny.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pull quote -->
+<div class="pull-quote anim">
+    <blockquote>„Tequila není vyrobena — je vypěstována. Každá lahev je zrcadlem slunce, půdy a lidských rukou."</blockquote>
+    <cite>Carlos Camarena — El Tesoro &amp; G4 Tequila</cite>
+</div>
+
+<div class="sep"></div>
+
+<!-- ══════════════════════════════
+     KAPITOLA 4 — FERMENTACE
+══════════════════════════════ -->
+<section class="section-mid">
+    <div class="photo-section photo-section--split reverse anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-VXj9SizkreE?w=1200&q=90&fit=crop"
+                alt="Fermentační tanky v tequilové palírně"
+                loading="lazy">
+            <div class="photo-caption">Fermentační nádrže — přeměna cukrů v alkohol</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">04</span>
+            <div class="chapter-label">Fermentace</div>
+            <h3>Kde se<br>rodí charakter</h3>
+            <div class="divider"></div>
+            <p>Uvařená agáve se rozemele a šťáva — <em>mosto</em> — teče do fermentačních nádrží. Dřevěné nádrže z topolového dřeva nebo nerezová ocel: každý materiál vnáší jiný charakter. Kvasinky pracují 3–7 dní. Tradiční palírny používají divoké kvasinky zachycené ze vzduchu, průmyslové zavádějí kultivované kmeny.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════
+     KAPITOLA 5 — DESTILACE
+══════════════════════════════ -->
+<section class="section-dark">
+    <div class="photo-section photo-section--split anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-DQpHtE5WY-U?w=1200&q=90&fit=crop"
+                alt="Měděný destilační kotel — tequilová palírna"
+                loading="lazy">
+            <div class="photo-caption">Tradiční měděný pot still — srdce destilace</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">05</span>
+            <div class="chapter-label">Destilace</div>
+            <h3>Měď a<br>plameny</h3>
+            <div class="divider"></div>
+            <p>Fermentovaná šťáva prochází destilací — většinou dvakrát. První destilace vytvoří <em>ordinario</em> (~25% ABV), druhá <em>tequilu</em> (~55% ABV). Tradiční měděné <em>pot stilly</em> zachytávají jemnější estery a kyseliny. Moderní nerezové kotle jsou efektivnější, ale méně komplexní.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════
+     KAPITOLA 6 — ZRÁNÍ
+══════════════════════════════ -->
+<section class="section-mid">
+    <div class="photo-section photo-section--split reverse anim">
+        <div class="photo-frame">
+            <img
+                src="https://images.unsplash.com/photo-QL3SaEwio_k?w=1200&q=90&fit=crop"
+                alt="Sudy v tequilovém skladu — zrání añejo"
+                loading="lazy">
+            <div class="photo-caption">Sudový sklad — čas a dřevo tvoří añejo</div>
+        </div>
+        <div class="text-block">
+            <span class="chapter-num">06</span>
+            <div class="chapter-label">Zrání</div>
+            <h3>Čas jako<br>ingredience</h3>
+            <div class="divider"></div>
+            <p>Blanco lahvujeme okamžitě. Reposado odpočívá v sudech 2–12 měsíců. Añejo zraje 1–3 roky, Extra Añejo nad 3 roky. Sudy — nejčastěji po bourbonu z amerického dubu — předávají tequile vanilku, karamel, kořenitost. Každý sklad je mikroklimat, který nelze napodobit.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Full-bleed closing photo -->
+<div class="photo-full anim">
+    <img
+        src="https://images.unsplash.com/photo-l1kZD3_dySY?w=1600&q=90&fit=crop&crop=center"
+        alt="Řady sudů v tequilovém skladu"
+        loading="lazy">
+</div>
+
+<!-- ══════════════════════════════
+     KAPITOLA 7 — VÝSLEDEK
+══════════════════════════════ -->
+<section class="section-dark">
+    <div class="photo-section">
+        <div class="pull-quote anim" style="padding:0 0 3rem;">
+            <div class="chapter-label" style="justify-content:center;">Kapitola 7</div>
+            <h2 style="color:#f0ece4; margin-bottom:1.25rem; text-align:center;">Od pole<br>k <em style="color:var(--gold); font-style:italic;">lahvi</em></h2>
+        </div>
+        <div class="photo-trio anim">
+            <div>
+                <img
+                    src="https://images.unsplash.com/photo-X7VxHacahHA?w=800&q=85&fit=crop"
+                    alt="Lahev Espolón tequila a koktejl"
+                    loading="lazy">
+                <div class="photo-caption">Lahvování — poslední krok výroby</div>
+            </div>
+            <div>
+                <img
+                    src="https://images.unsplash.com/photo-tfLBYGwDews?w=800&q=85&fit=crop"
+                    alt="Lahev tequily zblízka"
+                    loading="lazy">
+                <div class="photo-caption">Každá lahev — unikátní terroir &amp; řemeslo</div>
+            </div>
+            <div>
+                <img
+                    src="https://images.unsplash.com/photo-T8-c0h-rzNc?w=800&q=85&fit=crop"
+                    alt="Tequila sklínky a lahve"
+                    loading="lazy">
+                <div class="photo-caption">Ochutnávka — finální odhalení</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Closing pull quote -->
+<section class="section-mid">
+    <div class="pull-quote anim">
+        <blockquote>„V každém doušku tequily je krajina, která ji zrodila, a lidé, kteří ji vytvořili."</blockquote>
+        <cite>Tequila 101</cite>
+    </div>
+</section>
+
+<!-- ══════════════════════════════
+     CREDITS
+══════════════════════════════ -->
+<div class="credits">
+    <p>Fotografie: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> — volné k užití dle <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a>.</p>
+</div>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer>
+    <div class="container">
+        <span class="footer-logo">Tequila <span>101</span></span>
+        <p>Průvodce světem prémiové tequily</p>
+        <p>Vzdělávací projekt — nekomerční obsah</p>
+    </div>
+</footer>
+
+<script>
+    const nav = document.getElementById('nav');
+    const burger = document.getElementById('burger');
+    const navMenu = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+    navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
